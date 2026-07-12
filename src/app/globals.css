@@ -1,26 +1,192 @@
 @import "tailwindcss";
 
+/* ============================================================================
+ * Design tokens — blueprint-inspired engineering-editorial palette.
+ * Ink on paper. Instruments in brass. Safety in restrained red.
+ * ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palette */
+  --ink: #0a2540;           /* deep blueprint blue, primary */
+  --ink-soft: #14375a;      /* softer ink for large blocks */
+  --paper: #f5f1e8;         /* warm ivory background */
+  --paper-warm: #efe9dc;    /* slightly deeper paper for panels */
+  --graphite: #4a5568;      /* secondary text */
+  --graphite-soft: #6b7280; /* muted / caption text */
+  --brass: #b08d57;         /* warm brass accent, restrained */
+  --brass-soft: #c9a877;    /* hover / softer brass */
+  --safety: #c8342e;        /* safety red — used minimally */
+  --rule: #d4c9b0;          /* hairline dividers, blueprint-style */
+  --rule-soft: #e5dcc5;     /* even softer dividers */
+
+  /* Typography */
+  --font-serif: var(--font-plex-serif), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-plex-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), "SF Mono", "Consolas", monospace;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-paper-warm: var(--paper-warm);
+  --color-graphite: var(--graphite);
+  --color-graphite-soft: var(--graphite-soft);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-safety: var(--safety);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ============================================================================
+ * Base — the paper and the ink. Body is Plex Sans, editorial by default.
+ * ========================================================================== */
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  font-feature-settings: "kern", "liga", "ss01";
+}
+
+/* Headings: serif, editorial weights, tight tracking */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+/* ============================================================================
+ * Blueprint utility classes — the technical labels, dimension marks,
+ * eyebrow captions that make this feel like an engineering sheet.
+ * ========================================================================== */
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--graphite);
+}
+
+.tech-label-uc {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+/* Hairline divider — like a dimension line on a drawing */
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.rule-brass {
+  border: 0;
+  border-top: 1px solid var(--brass);
+  margin: 0;
+}
+
+/* Blueprint corner-brackets — small L-shaped marks used as ornament,
+   evoking crop marks on a drawing plate. */
+.plate-corners {
+  position: relative;
+}
+.plate-corners::before,
+.plate-corners::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--rule);
+  border-style: solid;
+  border-width: 0;
+}
+.plate-corners::before {
+  top: 0;
+  left: 0;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+.plate-corners::after {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+/* Dimension tick — small marks used along measurement lines */
+.dim-tick {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+}
+
+/* ============================================================================
+ * Prose defaults — for About / Approach paragraphs.
+ * ========================================================================== */
+
+.prose p {
+  color: var(--ink-soft);
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0 0 1.1em;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================================================
+ * Selection & focus — subtle but present.
+ * ========================================================================== */
+
+::selection {
+  background: var(--brass);
+  color: var(--paper);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--brass);
+  outline-offset: 3px;
+}
+
+/* Reduced motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
