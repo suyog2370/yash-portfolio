@@ -1,71 +1,6 @@
-/**
- * Expertise
- * ---------
- * Structured technical inventory. Four columns — Systems, Standards,
- * Tools, BIM. Each a labelled schedule (like an equipment schedule
- * on a set of drawings). Monospace for the entries; serif eyebrows
- * for the categories.
- */
+import { EXPERTISE } from "@/components/preview/portfolioContent";
 
-type Column = {
-  title: string;
-  items: string[];
-};
-
-const COLUMNS: Column[] = [
-  {
-    title: "Systems",
-    items: [
-      "Wet & dry sprinkler",
-      "Pre-action (single & double interlock)",
-      "Deluge",
-      "Water mist",
-      "Foam suppression (AFFF / high-expansion)",
-      "Standpipe & hose systems",
-      "Fire hydrant networks",
-      "Fire pump rooms",
-    ],
-  },
-  {
-    title: "Codes & Standards",
-    items: [
-      "NFPA — full family (13, 14, 15, 20, 24, 750)",
-      "FM Global Data Sheets",
-      "LPC Rules",
-      "EN 12845 (fixed sprinkler)",
-      "EN 9251 (domestic & residential)",
-      "VdS",
-      "Irish & UK Building Regs",
-      "NYC Building Code / IBC",
-    ],
-  },
-  {
-    title: "Tools",
-    items: [
-      "Revit MEP",
-      "AutoCAD",
-      "Navisworks Manage",
-      "Autosprink RVT",
-      "Fire Elite / SprinkCAD",
-      "Autodesk Construction Cloud",
-      "Bluebeam Revu",
-      "BIM 360",
-    ],
-  },
-  {
-    title: "BIM & Coordination",
-    items: [
-      "LOD 400 / 500 modelling",
-      "Clash detection & resolution",
-      "Fabrication & shop drawings",
-      "Construction drawing packages",
-      "Coordination with structural / MEP / architecture",
-      "Bill of quantities (BOQ)",
-      "Hydraulic calculations & pump sizing",
-      "Technical submittals & QA/QC",
-    ],
-  },
-];
+type Column = { title: string; items: readonly string[] };
 
 export function Expertise() {
   return (
@@ -91,9 +26,8 @@ export function Expertise() {
           </div>
         </div>
 
-        {/* Four columns of expertise. */}
         <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
-          {COLUMNS.map((col) => (
+          {EXPERTISE.map((col) => (
             <ExpertiseColumn key={col.title} column={col} />
           ))}
         </div>

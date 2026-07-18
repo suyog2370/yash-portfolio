@@ -1,61 +1,6 @@
-/**
- * Sectors
- * -------
- * Descriptive cards for the sectors Yash designs fire protection for.
- * Each card is a short line of what he actually does in that sector,
- * not a client list. Warmer tone, first person where it lands well.
- *
- * Cards use a numbered marker because sectors are enumerated on his
- * resume; the number is a schedule reference, not a ranking.
- */
+import { SECTORS } from "@/components/preview/portfolioContent";
 
-type Sector = {
-  name: string;
-  description: string;
-};
-
-const SECTORS: Sector[] = [
-  {
-    name: "Hyperscale data centres",
-    description:
-      "Sprinkler and pre-action design for mission-critical white-space, pump rooms, and support facilities across multiple European sites.",
-  },
-  {
-    name: "Healthcare",
-    description:
-      "Life-safety design for large hospital campuses, coordinated tightly with medical gas, HVAC, and complex compartmentation strategies.",
-  },
-  {
-    name: "Aviation",
-    description:
-      "Airport terminal fire protection at scale — high-ceiling suppression, foam systems, and coordination across an active landside programme.",
-  },
-  {
-    name: "Warehouses (ESFR)",
-    description:
-      "In-rack and ceiling-only ESFR sprinkler design for high-piled storage, sized to actual commodity classification and storage configuration.",
-  },
-  {
-    name: "Power generation",
-    description:
-      "Deluge, water-mist, and foam suppression for turbine halls, transformer bays, and fuel handling. Written to FM Global data sheets.",
-  },
-  {
-    name: "Commercial & office",
-    description:
-      "Sprinkler design and standpipe systems for high-rise and mid-rise offices in the US and Europe, coordinated in Revit and Navisworks.",
-  },
-  {
-    name: "Mixed-use & retail",
-    description:
-      "Integrated sprinkler design for towers with retail podiums, restaurants, and hospitality — tenant fit-out coordination baked in from concept.",
-  },
-  {
-    name: "Residential",
-    description:
-      "Domestic and residential sprinkler systems for townhouses, apartment blocks, and mixed developments across Ireland and the UK.",
-  },
-];
+type Sector = { name: string; description: string };
 
 export function Sectors() {
   return (
@@ -81,8 +26,6 @@ export function Sectors() {
           </div>
         </div>
 
-        {/* Sector grid — restrained cards. Rule at top,
-            name in serif, one clean line of description. */}
         <div className="grid gap-x-10 gap-y-10 md:grid-cols-2">
           {SECTORS.map((sector) => (
             <SectorCard key={sector.name} sector={sector} />

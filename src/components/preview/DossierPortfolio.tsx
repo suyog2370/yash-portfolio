@@ -3,6 +3,7 @@ import {
   IDENTITY,
   ABOUT_PARAS,
   CURRENT_FOCUS,
+  STRENGTHS,
   SECTORS,
   EXPERTISE,
   PRINCIPLES,
@@ -235,6 +236,80 @@ export function DossierPortfolio() {
             ))}
             <li aria-hidden style={{ borderTop: `2px solid ${INK}` }} />
           </ol>
+        </div>
+      </section>
+
+      {/* ============ TRACK RECORD ============ */}
+      <section
+        style={{ background: PAPER, borderBottom: `1px solid ${RULE}` }}
+        className="py-12 md:py-20"
+      >
+        <div className="max-w-[1100px] mx-auto px-5 md:px-10">
+          <SectionHeading label="Track record" note="Highlights" />
+
+          {/* Metrics row — dense */}
+          <div className="grid gap-4 md:gap-8 grid-cols-2 lg:grid-cols-4 mb-10">
+            {STRENGTHS.metrics.map((m) => (
+              <div
+                key={m.label}
+                style={{ borderTop: `2px solid ${INK}`, paddingTop: 12 }}
+              >
+                <div
+                  style={{
+                    fontFamily: SERIF,
+                    fontSize: "clamp(32px, 5vw, 52px)",
+                    lineHeight: 1,
+                    letterSpacing: "-0.02em",
+                    color: RED,
+                    fontWeight: 700,
+                    marginBottom: 6,
+                  }}
+                >
+                  {m.value}
+                </div>
+                <div
+                  style={{
+                    fontFamily: SANS,
+                    fontSize: 10.5,
+                    letterSpacing: "0.14em",
+                    textTransform: "uppercase",
+                    color: MUTED,
+                    fontWeight: 600,
+                  }}
+                >
+                  {m.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Qualitative strengths — dense list */}
+          <ul
+            className="grid gap-3 md:gap-4 md:grid-cols-2"
+            style={{ margin: 0, padding: 0, listStyle: "none" }}
+          >
+            {STRENGTHS.qualitative.map((s) => (
+              <li
+                key={s}
+                style={{
+                  fontFamily: SANS,
+                  fontSize: 13.5,
+                  lineHeight: 1.55,
+                  color: INK_SOFT,
+                  paddingLeft: 18,
+                  position: "relative",
+                }}
+              >
+                <span
+                  aria-hidden
+                  style={{ color: RED, position: "absolute", left: 0 }}
+                >
+                  ▸
+                </span>
+                {s}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

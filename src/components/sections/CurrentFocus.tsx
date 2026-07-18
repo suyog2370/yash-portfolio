@@ -1,9 +1,7 @@
+import { CURRENT_FOCUS } from "@/components/preview/portfolioContent";
+
 /**
- * CurrentFocus
- * ------------
- * "Currently working on" — a compact block signalling specialization
- * and freshness without any availability signal. Reads like a schedule
- * note pinned to a drawing.
+ * Currently working on (Blueprint direction).
  */
 export function CurrentFocus() {
   return (
@@ -27,12 +25,10 @@ export function CurrentFocus() {
               and mission-critical infrastructure across Europe.
             </p>
 
-            {/* Focus tags — like schedule notes. Monospace, tight rules. */}
             <div className="mt-10 grid gap-6 grid-cols-2 md:grid-cols-4">
-              <FocusTag label="Sector" value="Data centres" />
-              <FocusTag label="Region" value="Europe" />
-              <FocusTag label="Standards" value="NFPA / FM Global / LPC" />
-              <FocusTag label="BIM" value="LOD 400 / 500" />
+              {CURRENT_FOCUS.tags.map(([label, value]) => (
+                <FocusTag key={label} label={label} value={value} />
+              ))}
             </div>
           </div>
         </div>

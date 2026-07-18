@@ -1,63 +1,4 @@
-/**
- * Career
- * ------
- * A compact chronological timeline. Because this genuinely is a
- * sequence, numbered markers earn their place. Each entry is a
- * horizontal record: dates, company, role, and one line of context.
- */
-
-type Role = {
-  dates: string;
-  company: string;
-  location: string;
-  role: string;
-  context: string;
-  current?: boolean;
-};
-
-const ROLES: Role[] = [
-  {
-    dates: "Nov 2025 — Present",
-    company: "Writech Industrial Services Ltd.",
-    location: "Ireland",
-    role: "Sr. Fire Protection Design Engineer",
-    context:
-      "Leading fire protection design for hyperscale data centres, power generation, and mission-critical infrastructure across Europe.",
-    current: true,
-  },
-  {
-    dates: "Mar 2019 — Aug 2025",
-    company: "JB Everest Technical Services",
-    location: "Pune",
-    role: "Sr. Public Health & Fire Protection Engineer",
-    context:
-      "Sprinkler, hydrant, and suppression design for large commercial, healthcare, and infrastructure projects across European clients. Coordinated construction packages and led delivery for a 20+ person team.",
-  },
-  {
-    dates: "Dec 2016 — Feb 2020",
-    company: "New York Engineers",
-    location: "Pune",
-    role: "Plumbing & Fire Protection Design Engineer",
-    context:
-      "Plumbing and fire protection systems to NYC codes and NFPA — commercial and residential developments. Site utility drawings, calcs, submittals, and RFIs.",
-  },
-  {
-    dates: "Post-graduate",
-    company: "Thermax Ltd.",
-    location: "Pune",
-    role: "Post Graduate Project Trainee",
-    context:
-      "Early mechanical engineering experience on large industrial systems — the foundation for a career designing systems that need to actually work.",
-  },
-  {
-    dates: "Undergraduate",
-    company: "Tata Motors PCBU & TAL",
-    location: "Pune",
-    role: "Graduate Project Trainee",
-    context:
-      "Automation and manufacturing exposure — where engineering discipline first became second nature.",
-  },
-];
+import { ROLES, type RoleEntry } from "@/components/preview/portfolioContent";
 
 export function Career() {
   return (
@@ -82,7 +23,7 @@ export function Career() {
 
         <ol className="space-y-8 md:space-y-10">
           {ROLES.map((r) => (
-            <RoleEntry key={`${r.company}-${r.dates}`} role={r} />
+            <RoleEntryView key={`${r.company}-${r.dates}`} role={r} />
           ))}
         </ol>
       </div>
@@ -90,7 +31,7 @@ export function Career() {
   );
 }
 
-function RoleEntry({ role }: { role: Role }) {
+function RoleEntryView({ role }: { role: RoleEntry }) {
   return (
     <li className="grid gap-3 md:gap-6 md:grid-cols-[140px_1fr] pt-6 border-t border-[color:var(--rule)]">
       <div className="tech-label-uc text-[color:var(--brass)] flex md:block items-center justify-between">

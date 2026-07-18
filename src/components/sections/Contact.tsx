@@ -1,24 +1,22 @@
-/**
- * Contact
- * -------
- * Understated contact block. No availability signalling — just the
- * details, positioned like the title-block signature on the final
- * sheet of a drawing set. Warmer heading, restrained delivery.
- */
+import { IDENTITY } from "@/components/preview/portfolioContent";
 
 const LINKS = [
   {
     label: "Email",
-    value: "yashpshah.shah@gmail.com",
-    href: "mailto:yashpshah.shah@gmail.com",
+    value: IDENTITY.email,
+    href: `mailto:${IDENTITY.email}`,
   },
-  { label: "Phone", value: "+353 87 399 2122", href: "tel:+353873992122" },
+  {
+    label: "Phone",
+    value: IDENTITY.phone,
+    href: `tel:${IDENTITY.phone.replace(/\s/g, "")}`,
+  },
   {
     label: "LinkedIn",
-    value: "linkedin.com/in/yashkumarshah",
-    href: "https://linkedin.com/in/yashkumarshah",
+    value: IDENTITY.linkedin,
+    href: IDENTITY.linkedinUrl,
   },
-  { label: "Location", value: "Mullingar, Ireland" },
+  { label: "Location", value: IDENTITY.location },
 ];
 
 export function Contact() {
@@ -48,7 +46,6 @@ export function Contact() {
               answer within a day or two.
             </p>
 
-            {/* Contact list — spaced like schedule entries, monospace values. */}
             <ul className="mt-12 grid gap-6 md:grid-cols-2">
               {LINKS.map((link) => (
                 <li
@@ -83,11 +80,10 @@ export function Contact() {
         </div>
       </div>
 
-      {/* Footer — quiet copyright line. */}
       <div className="max-w-[1200px] mx-auto px-6 md:px-12 mt-24 md:mt-32">
         <hr className="rule mb-4" />
         <div className="flex items-center justify-end tech-label-uc">
-          <span>© {new Date().getFullYear()} Yashkumar Shah</span>
+          <span>© {new Date().getFullYear()} {IDENTITY.name}</span>
         </div>
       </div>
     </section>

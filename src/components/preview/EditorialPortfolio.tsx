@@ -3,6 +3,7 @@ import {
   IDENTITY,
   ABOUT_PARAS,
   CURRENT_FOCUS,
+  STRENGTHS,
   SECTORS,
   EXPERTISE,
   PRINCIPLES,
@@ -214,6 +215,71 @@ export function EditorialPortfolio() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ============ TRACK RECORD — editorial ============ */}
+      <section
+        style={{ background: CREAM_DEEP, borderBottom: `1px solid ${RULE}` }}
+        className="py-16 md:py-24"
+      >
+        <div className="max-w-[1200px] mx-auto px-5 md:px-12">
+          <EditorialSection eyebrow="Track record" note="Highlights" />
+
+          <div className="mt-12 md:mt-16 grid gap-8 md:gap-10 grid-cols-2 lg:grid-cols-4 mb-12 md:mb-16">
+            {STRENGTHS.metrics.map((m) => (
+              <div key={m.label} style={{ textAlign: "center" }}>
+                <div
+                  style={{
+                    fontFamily: DISPLAY,
+                    fontSize: "clamp(52px, 8vw, 96px)",
+                    lineHeight: 1,
+                    letterSpacing: "-0.04em",
+                    color: ACCENT,
+                    fontWeight: 500,
+                    marginBottom: 12,
+                    fontStyle: "italic",
+                  }}
+                >
+                  {m.value}
+                </div>
+                <div
+                  style={{
+                    fontFamily: SANS,
+                    fontSize: 11,
+                    letterSpacing: "0.2em",
+                    textTransform: "uppercase",
+                    color: MUTED,
+                    fontWeight: 600,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  {m.label}
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <ul
+            className="grid gap-6 md:grid-cols-2"
+            style={{ margin: 0, padding: 0, listStyle: "none", maxWidth: 1000, marginLeft: "auto", marginRight: "auto" }}
+          >
+            {STRENGTHS.qualitative.map((s) => (
+              <li
+                key={s}
+                style={{
+                  fontFamily: SERIF,
+                  fontSize: 15.5,
+                  lineHeight: 1.7,
+                  color: INK_SOFT,
+                  paddingLeft: 20,
+                  borderLeft: `2px solid ${ACCENT}`,
+                }}
+              >
+                {s}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 

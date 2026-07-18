@@ -1,6 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { CurrentFocus } from "@/components/sections/CurrentFocus";
+import { TrackRecord } from "@/components/sections/TrackRecord";
 import { Sectors } from "@/components/sections/Sectors";
 import { Expertise } from "@/components/sections/Expertise";
 import { Approach } from "@/components/sections/Approach";
@@ -10,8 +11,7 @@ import { Contact } from "@/components/sections/Contact";
 import { PreviewBar } from "@/components/preview/PreviewBar";
 
 /**
- * Direction A — Blueprint / Engineering-Editorial
- * Full 9-section portfolio in this visual language.
+ * Direction A — Blueprint / Engineering-Editorial. Full portfolio.
  */
 export default function BlueprintPreview() {
   return (
@@ -25,6 +25,7 @@ export default function BlueprintPreview() {
         <Hero />
         <About />
         <CurrentFocus />
+        <TrackRecord />
         <Sectors />
         <Expertise />
         <Approach />

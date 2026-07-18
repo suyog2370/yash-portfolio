@@ -1,6 +1,7 @@
 import { Hero } from "@/components/sections/Hero";
 import { About } from "@/components/sections/About";
 import { CurrentFocus } from "@/components/sections/CurrentFocus";
+import { TrackRecord } from "@/components/sections/TrackRecord";
 import { Sectors } from "@/components/sections/Sectors";
 import { Expertise } from "@/components/sections/Expertise";
 import { Approach } from "@/components/sections/Approach";
@@ -14,6 +15,7 @@ export default function Home() {
       <Hero />
       <About />
       <CurrentFocus />
+      <TrackRecord />
       <Sectors />
       <Expertise />
       <Approach />

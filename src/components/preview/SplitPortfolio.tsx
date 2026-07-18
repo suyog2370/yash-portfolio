@@ -6,6 +6,7 @@ import {
   IDENTITY,
   ABOUT_PARAS,
   CURRENT_FOCUS,
+  STRENGTHS,
   SECTORS,
   EXPERTISE,
   PRINCIPLES,
@@ -42,6 +43,7 @@ const MONO = '"JetBrains Mono", "IBM Plex Mono", monospace';
 const NAV_ITEMS = [
   { id: "about", label: "About" },
   { id: "focus", label: "At present" },
+  { id: "track-record", label: "Track record" },
   { id: "sectors", label: "Sectors" },
   { id: "practice", label: "Practice" },
   { id: "approach", label: "Approach" },
@@ -356,8 +358,92 @@ export function SplitPortfolio() {
               </div>
             </SplitSection>
 
+            {/* TRACK RECORD */}
+            <SplitSection id="track-record" num="03" label="Track record">
+              <h2
+                style={{
+                  fontSize: "clamp(24px, 3vw, 32px)",
+                  lineHeight: 1.2,
+                  letterSpacing: "-0.02em",
+                  fontWeight: 600,
+                  color: INK,
+                  margin: "0 0 24px",
+                }}
+              >
+                Nine years, more than a hundred buildings.
+              </h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                {STRENGTHS.metrics.map((m) => (
+                  <div
+                    key={m.label}
+                    style={{
+                      background: "white",
+                      border: `1px solid ${RULE}`,
+                      borderRadius: 8,
+                      padding: "16px 14px",
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: "clamp(26px, 3.5vw, 36px)",
+                        lineHeight: 1,
+                        letterSpacing: "-0.03em",
+                        color: ACCENT,
+                        fontWeight: 700,
+                        marginBottom: 8,
+                      }}
+                    >
+                      {m.value}
+                    </div>
+                    <div
+                      style={{
+                        fontFamily: MONO,
+                        fontSize: 9.5,
+                        letterSpacing: "0.16em",
+                        textTransform: "uppercase",
+                        color: MUTED,
+                        lineHeight: 1.4,
+                      }}
+                    >
+                      {m.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+              <ul
+                className="space-y-3"
+                style={{ margin: 0, padding: 0, listStyle: "none" }}
+              >
+                {STRENGTHS.qualitative.map((s) => (
+                  <li
+                    key={s}
+                    style={{
+                      fontSize: 14.5,
+                      lineHeight: 1.6,
+                      color: INK_SOFT,
+                      paddingLeft: 18,
+                      position: "relative",
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      style={{
+                        position: "absolute",
+                        left: 0,
+                        top: "0.7em",
+                        width: 10,
+                        height: 1,
+                        background: ACCENT,
+                      }}
+                    />
+                    {s}
+                  </li>
+                ))}
+              </ul>
+            </SplitSection>
+
             {/* SECTORS — ACCORDION */}
-            <SplitSection id="sectors" num="03" label="Sectors">
+            <SplitSection id="sectors" num="04" label="Sectors">
               <h2
                 style={{
                   fontSize: "clamp(24px, 3vw, 32px)",
@@ -386,7 +472,7 @@ export function SplitPortfolio() {
             </SplitSection>
 
             {/* EXPERTISE — FILTER CHIPS */}
-            <SplitSection id="practice" num="04" label="Practice">
+            <SplitSection id="practice" num="05" label="Practice">
               <h2
                 style={{
                   fontSize: "clamp(24px, 3vw, 32px)",
@@ -403,7 +489,7 @@ export function SplitPortfolio() {
             </SplitSection>
 
             {/* APPROACH */}
-            <SplitSection id="approach" num="05" label="Approach">
+            <SplitSection id="approach" num="06" label="Approach">
               <h2
                 style={{
                   fontSize: "clamp(24px, 3vw, 32px)",
@@ -468,7 +554,7 @@ export function SplitPortfolio() {
             </SplitSection>
 
             {/* CAREER — compact vertical list */}
-            <SplitSection id="career" num="06" label="Career">
+            <SplitSection id="career" num="07" label="Career">
               <ol style={{ margin: 0, padding: 0, listStyle: "none" }}>
                 {ROLES.map((r, i) => (
                   <li
@@ -536,7 +622,7 @@ export function SplitPortfolio() {
             </SplitSection>
 
             {/* CREDENTIALS */}
-            <SplitSection id="credentials" num="07" label="Credentials">
+            <SplitSection id="credentials" num="08" label="Credentials">
               <div className="grid gap-8 md:grid-cols-2">
                 <SplitCredBlock title="Education" items={EDUCATION} />
                 <SplitCredBlock title="Professional" items={PROFESSIONAL} />
@@ -544,7 +630,7 @@ export function SplitPortfolio() {
             </SplitSection>
 
             {/* CONTACT */}
-            <SplitSection id="contact" num="08" label="Contact" last>
+            <SplitSection id="contact" num="09" label="Contact" last>
               <h2
                 style={{
                   fontSize: "clamp(28px, 4vw, 44px)",
