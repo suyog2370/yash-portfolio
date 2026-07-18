@@ -6,7 +6,7 @@
 
 export const IDENTITY = {
   name: "Yashkumar Shah",
-  title: "Sr. Fire Protection Design Engineer",
+  title: "Design Lead · Fire Protection",
   tagline: "Fire protection design for the buildings that shouldn't burn.",
   location: "Mullingar, Ireland",
   permit: "Critical Skills Work Permit · Stamp 1",
@@ -29,9 +29,25 @@ export const CURRENT_FOCUS = {
   tags: [
     ["Sector", "Data centres"],
     ["Region", "Europe"],
-    ["Standards", "NFPA / FM Global / LPC"],
+    ["Standards", "NFPA · FM Global · LPCB · European Norms"],
     ["BIM", "LOD 400 / 500"],
   ] as [string, string][],
+};
+
+export const STRENGTHS = {
+  metrics: [
+    { value: "75+", label: "Projects delivered" },
+    { value: "€10M+", label: "Multiple project values" },
+    { value: "20+", label: "Designers & BIM technicians managed" },
+    { value: "LOD 500", label: "Modelling standard" },
+  ],
+  qualitative: [
+    "BIM-driven design and coordination up to LOD 500, with fabrication-level drawings delivered directly to contractors.",
+    "Detailed multi-discipline coordination resolved to zero-tolerance clash rejection.",
+    "Detailed QA/QC process across every submission — recognised by clients for value engineering and design optimisation.",
+    "Clear communication, well-planned submissions, and reliable delivery under contract programme.",
+    "Experienced across NFPA, BS EN 12845, VdS 4001 CEA, IS EN 12845, BS 9251, and FM Global.",
+  ],
 };
 
 export const SECTORS = [
@@ -41,39 +57,54 @@ export const SECTORS = [
       "Sprinkler and pre-action design for mission-critical white-space, pump rooms, and support facilities across multiple European sites.",
   },
   {
-    name: "Healthcare",
+    name: "Power generation buildings",
     description:
-      "Life-safety design for large hospital campuses, coordinated tightly with medical gas, HVAC, and complex compartmentation strategies.",
+      "Deluge, water-mist, and foam suppression for turbine halls, transformer bays, and fuel handling — written to FM Global data sheets.",
   },
   {
-    name: "Aviation",
-    description:
-      "Airport terminal fire protection at scale — high-ceiling suppression, foam systems, and coordination across an active landside programme.",
-  },
-  {
-    name: "Warehouses (ESFR)",
+    name: "Warehouses",
     description:
       "In-rack and ceiling-only ESFR sprinkler design for high-piled storage, sized to actual commodity classification and storage configuration.",
   },
   {
-    name: "Power generation",
+    name: "Medical / hospital",
     description:
-      "Deluge, water-mist, and foam suppression for turbine halls, transformer bays, and fuel handling. Written to FM Global data sheets.",
+      "Life-safety design for hospital campuses and healthcare developments, coordinated tightly with HVAC and complex compartmentation strategies.",
   },
   {
-    name: "Commercial & office",
+    name: "Commercial / office buildings",
     description:
-      "Sprinkler design and standpipe systems for high-rise and mid-rise offices in the US and Europe, coordinated in Revit and Navisworks.",
+      "Sprinkler design and standpipe systems for high-rise and mid-rise offices across the US and Europe, coordinated in Revit and Navisworks.",
   },
   {
-    name: "Mixed-use & retail",
+    name: "Shopping complex",
     description:
-      "Integrated sprinkler design for towers with retail podiums, restaurants, and hospitality — tenant fit-out coordination baked in from concept.",
+      "Integrated sprinkler design for retail podiums and shopping centres, with tenant fit-out coordination baked in from the concept stage.",
   },
   {
-    name: "Residential",
+    name: "Hospitality",
     description:
-      "Domestic and residential sprinkler systems for townhouses, apartment blocks, and mixed developments across Ireland and the UK.",
+      "Fire protection design for hotels and hospitality projects, resolving suppression, standpipe, and finish coordination in the same package.",
+  },
+  {
+    name: "Institutional",
+    description:
+      "Sprinkler and hydrant design for institutional developments, sized and coordinated to project-specific occupancy and life-safety strategy.",
+  },
+  {
+    name: "Restaurants",
+    description:
+      "Kitchen suppression, ceiling sprinkler layouts, and coordinated fit-out drawings for standalone restaurants and food-and-beverage tenants.",
+  },
+  {
+    name: "Residential buildings",
+    description:
+      "Domestic and residential sprinkler systems for apartment blocks and mixed developments across Ireland and the UK.",
+  },
+  {
+    name: "Town houses",
+    description:
+      "BS 9251 and IS EN 12845 residential sprinkler systems for townhouse developments, sized and detailed for build-ready installation.",
   },
 ] as const;
 
@@ -96,12 +127,12 @@ export const EXPERTISE = [
     items: [
       "NFPA — 13, 14, 15, 20, 24, 750",
       "FM Global Data Sheets",
-      "LPC Rules",
-      "EN 12845",
-      "EN 9251",
-      "VdS",
+      "BS EN 12845",
+      "IS EN 12845",
+      "BS 9251",
+      "VdS 4001 CEA",
+      "LPCB Rules",
       "Irish & UK Building Regs",
-      "NYC Building Code / IBC",
     ],
   },
   {
@@ -143,7 +174,7 @@ export const PRINCIPLES = [
   },
   {
     title: "Coordination is a design deliverable.",
-    body: "Fire protection lives above ceilings, alongside HVAC, cable trays, medical gas, and structure. The value I bring isn't just the sprinkler design — it's the negotiation with every other discipline to make sure the design still works when they've all had their turn.",
+    body: "Fire protection lives above ceilings, alongside HVAC, cable trays, and structure. The value I bring isn't just the sprinkler design — it's the negotiation with every other discipline to make sure the design still works when they've all had their turn.",
   },
 ] as const;
 
@@ -159,13 +190,13 @@ export type RoleEntry = {
 
 export const ROLES: readonly RoleEntry[] = [
   {
-    dates: "Nov 2025 — Present",
-    dateShort: "2025—",
+    dates: "Jun 2027 — Present",
+    dateShort: "2027—",
     company: "Writech Industrial Services Ltd.",
     location: "Ireland",
-    role: "Sr. Fire Protection Design Engineer",
+    role: "Design Lead — Fire Protection",
     context:
-      "Leading fire protection design for hyperscale data centres, power generation, and mission-critical infrastructure across Europe.",
+      "Leading fire protection design for hyperscale data centres, power generation, and mission-critical infrastructure across Europe. Promoted from Sr. Fire Protection Design Engineer (joined Nov 2025) to Design Lead in June 2027.",
     current: true,
   },
   {

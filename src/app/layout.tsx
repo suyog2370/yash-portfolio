@@ -1,5 +1,11 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Serif, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
+import {
+  IBM_Plex_Serif,
+  IBM_Plex_Sans,
+  IBM_Plex_Mono,
+  Playfair_Display,
+  Inter,
+} from "next/font/google";
 import "./globals.css";
 
 // Serif: display voice — engineering-editorial authority.
@@ -27,6 +33,23 @@ const plexMono = IBM_Plex_Mono({
   display: "swap",
 });
 
+// Playfair Display: editorial display serif for the Hyperscale direction.
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+});
+
+// Inter: modern sans, pairs with Playfair for the Hyperscale direction.
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
   title: "Yashkumar Shah — Sr. Fire Protection Design Engineer",
   description:
@@ -51,7 +74,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plexSerif.variable} ${plexSans.variable} ${plexMono.variable} h-full antialiased`}
+      className={`${plexSerif.variable} ${plexSans.variable} ${plexMono.variable} ${playfair.variable} ${inter.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-paper text-ink">{children}</body>
     </html>

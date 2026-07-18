@@ -1,12 +1,13 @@
 import Image from "next/image";
+import { IDENTITY } from "./portfolioContent";
 
 /**
  * HeroHyperscale
  * --------------
  * Direction C — dark, mission-critical infrastructure aesthetic. Deep
- * charcoal on which content sits with an amber accent. Grotesk display,
- * subtle coordinate-grid overlay. Reads as senior infrastructure work —
- * quietly technical, not startup, no terminal-syntax pretense.
+ * charcoal on which content sits with an amber accent. Now using
+ * Playfair Display for the name (matches Editorial's display fonts)
+ * and Inter for body labels — for editorial polish over the dark palette.
  */
 export function HeroHyperscale() {
   return (
@@ -15,11 +16,10 @@ export function HeroHyperscale() {
       style={{
         background: "#0E1116",
         color: "#E8E5DE",
-        fontFamily: '"IBM Plex Sans", sans-serif',
+        fontFamily: "var(--font-inter)",
       }}
     >
-      {/* Very subtle grid overlay — ambient technical texture,
-          no readable content. */}
+      {/* Very subtle grid overlay — ambient technical texture. */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none opacity-[0.06]"
@@ -34,12 +34,12 @@ export function HeroHyperscale() {
       <div style={{ height: 3, background: "#F0A85E" }} />
 
       {/* Main content */}
-      <div className="relative flex-1 max-w-[1200px] w-full mx-auto px-6 md:px-12 py-20 md:py-32">
-        <div className="grid gap-16 md:gap-20 md:grid-cols-[1.4fr_1fr] items-center">
+      <div className="relative flex-1 max-w-[1200px] w-full mx-auto px-5 md:px-12 py-16 md:py-32">
+        <div className="grid gap-10 md:gap-20 md:grid-cols-[1.4fr_1fr] items-center">
           <div>
-            {/* Small role label — clean, no code syntax */}
+            {/* Role label */}
             <div
-              className="mb-8 flex items-center gap-3"
+              className="mb-6 md:mb-8 flex items-center gap-3"
               style={{
                 fontSize: 12,
                 letterSpacing: "0.18em",
@@ -48,49 +48,61 @@ export function HeroHyperscale() {
                 fontWeight: 500,
               }}
             >
-              Sr. Fire Protection Design Engineer
+              {IDENTITY.title}
             </div>
 
-            {/* Big grotesk name — no serif. Different vibe entirely. */}
+            {/* Big editorial name — Playfair Display serif */}
             <h1
               style={{
-                fontSize: "clamp(56px, 9vw, 108px)",
-                lineHeight: 0.92,
-                letterSpacing: "-0.045em",
-                fontWeight: 600,
+                fontFamily: "var(--font-display)",
+                fontSize: "clamp(48px, 9vw, 108px)",
+                lineHeight: 0.94,
+                letterSpacing: "-0.03em",
+                fontWeight: 500,
                 color: "#F5F1E8",
+                margin: 0,
               }}
             >
               Yashkumar
               <br />
-              <span style={{ fontWeight: 300, color: "#F0A85E" }}>Shah.</span>
+              <em
+                style={{
+                  fontWeight: 400,
+                  color: "#F0A85E",
+                  fontStyle: "italic",
+                }}
+              >
+                Shah.
+              </em>
             </h1>
 
             {/* Tagline — amber rule on the left */}
             <div
-              className="mt-10 pl-4"
+              className="mt-8 md:mt-10 pl-4"
               style={{ borderLeft: "2px solid #F0A85E" }}
             >
               <p
                 style={{
-                  fontSize: 20,
+                  fontFamily: "var(--font-display)",
+                  fontStyle: "italic",
+                  fontWeight: 400,
+                  fontSize: "clamp(18px, 2.2vw, 22px)",
                   lineHeight: 1.4,
-                  color: "rgba(232, 229, 222, 0.78)",
-                  fontWeight: 300,
+                  color: "rgba(232, 229, 222, 0.82)",
                   maxWidth: "40ch",
+                  margin: 0,
                 }}
               >
-                Fire protection design for the buildings that
-                <br />
-                shouldn&rsquo;t burn.
+                Fire protection design for the buildings that shouldn&rsquo;t
+                burn.
               </p>
             </div>
 
-            {/* Meta chips — clean labels, no environment-variable syntax */}
+            {/* Meta chips */}
             <div
-              className="mt-12 flex flex-wrap items-center gap-x-6 gap-y-3"
+              className="mt-10 md:mt-12 flex flex-wrap items-center gap-x-4 md:gap-x-6 gap-y-2 md:gap-y-3"
               style={{
-                fontSize: 12.5,
+                fontSize: 12,
                 letterSpacing: "0.06em",
                 color: "rgba(232, 229, 222, 0.65)",
               }}
@@ -101,23 +113,23 @@ export function HeroHyperscale() {
                   className="inline-block w-1.5 h-1.5 rounded-full"
                   style={{ background: "#F0A85E" }}
                 />
-                Mullingar, Ireland
+                {IDENTITY.location}
               </span>
               <span aria-hidden style={{ color: "rgba(232, 229, 222, 0.25)" }}>
                 /
               </span>
-              <span>Critical Skills Work Permit · Stamp 1</span>
+              <span>{IDENTITY.permit}</span>
               <span aria-hidden style={{ color: "rgba(232, 229, 222, 0.25)" }}>
                 /
               </span>
-              <span>9+ years</span>
+              <span>{IDENTITY.years}</span>
             </div>
           </div>
 
-          {/* Portrait — clean square, amber outline. No filename caption. */}
-          <div className="flex justify-center md:justify-end">
+          {/* Portrait — clean square, amber outline */}
+          <div className="flex justify-center md:justify-end order-first md:order-none">
             <div
-              className="relative w-[300px] md:w-[340px] aspect-square overflow-hidden"
+              className="relative w-[240px] md:w-[340px] aspect-square overflow-hidden"
               style={{
                 border: "1px solid rgba(240, 168, 94, 0.4)",
                 boxShadow:
@@ -126,10 +138,10 @@ export function HeroHyperscale() {
             >
               <Image
                 src="/headshot.jpg"
-                alt="Portrait of Yashkumar Shah"
+                alt={`Portrait of ${IDENTITY.name}`}
                 fill
                 priority
-                sizes="(max-width: 768px) 300px, 340px"
+                sizes="(max-width: 768px) 240px, 340px"
                 className="object-cover"
                 style={{ filter: "brightness(0.92) contrast(1.05)" }}
               />
