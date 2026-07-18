@@ -125,7 +125,7 @@ export function HeroCodebook() {
               style={{ border: "6px solid #8B1F18" }}
             >
               <Image
-                src="/headshot.jpg"
+                src="/headshot.webp"
                 alt={`Portrait of ${IDENTITY.name}`}
                 fill
                 priority

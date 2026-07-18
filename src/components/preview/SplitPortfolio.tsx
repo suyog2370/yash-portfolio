@@ -79,7 +79,7 @@ export function SplitPortfolio() {
                 style={{ border: `1px solid ${RULE_DARK}`, borderRadius: 4 }}
               >
                 <Image
-                  src="/headshot.jpg"
+                  src="/headshot.webp"
                   alt={IDENTITY.name}
                   fill
                   priority

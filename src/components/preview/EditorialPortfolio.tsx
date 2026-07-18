@@ -95,7 +95,7 @@ export function EditorialPortfolio() {
                 style={{ border: `1px solid ${INK}` }}
               >
                 <Image
-                  src="/headshot.jpg"
+                  src="/headshot.webp"
                   alt={IDENTITY.name}
                   fill
                   priority

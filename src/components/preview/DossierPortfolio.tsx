@@ -122,7 +122,7 @@ export function DossierPortfolio() {
               style={{ border: `2px solid ${INK}` }}
             >
               <Image
-                src="/headshot.jpg"
+                src="/headshot.webp"
                 alt={IDENTITY.name}
                 fill
                 priority

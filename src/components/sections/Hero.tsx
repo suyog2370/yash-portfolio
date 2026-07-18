@@ -56,7 +56,7 @@ export function Hero() {
           <figure className="w-full max-w-[380px]">
             <div className="relative aspect-[4/5] overflow-hidden bg-paper-warm">
               <Image
-                src="/headshot.jpg"
+                src="/headshot.webp"
                 alt={`Portrait of ${IDENTITY.name}`}
                 fill
                 priority
