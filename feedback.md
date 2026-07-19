@@ -40,6 +40,7 @@
 
 
 # new section
+on this website there is slider of software which i want to add in hyperscale design.
 https://www.everestltd.ie/Services/fire-protection-services
 add MicroBIM Fire
 dont use agacad

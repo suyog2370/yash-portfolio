@@ -1,25 +1,24 @@
 import Image from "next/image";
-import { IDENTITY } from "./portfolioContent";
+import { IDENTITY, HERO_BULLETS, HERO_SPEC } from "./portfolioContent";
 
 /**
- * HeroHyperscale
- * --------------
- * Direction C — dark, mission-critical infrastructure aesthetic. Deep
- * charcoal on which content sits with an amber accent. Now using
- * Playfair Display for the name (matches Editorial's display fonts)
- * and Inter for body labels — for editorial polish over the dark palette.
+ * HeroHyperscale — Direction C, dark mission-critical aesthetic.
+ * Rev 3: consistent name typography (both parts same weight/colour, no
+ * italic, no period), feature bullets under tagline, portrait with
+ * subtle border-radius, spec-schedule table under bullets, tighter
+ * bottom margin, mobile-first sizing.
  */
 export function HeroHyperscale() {
   return (
     <section
-      className="relative min-h-[92vh] flex flex-col"
+      className="relative flex flex-col"
       style={{
         background: "#0E1116",
         color: "#E8E5DE",
         fontFamily: "var(--font-inter)",
       }}
     >
-      {/* Very subtle grid overlay — ambient technical texture. */}
+      {/* Ambient coordinate grid */}
       <div
         aria-hidden
         className="absolute inset-0 pointer-events-none opacity-[0.06]"
@@ -30,18 +29,19 @@ export function HeroHyperscale() {
         }}
       />
 
-      {/* Amber accent bar at top — signals the palette, no text. */}
+      {/* Amber accent bar */}
       <div style={{ height: 3, background: "#F0A85E" }} />
 
-      {/* Main content */}
-      <div className="relative flex-1 max-w-[1200px] w-full mx-auto px-5 md:px-12 py-16 md:py-32">
-        <div className="grid gap-10 md:gap-20 md:grid-cols-[1.4fr_1fr] items-center">
+      {/* Main content — reduced padding especially at bottom */}
+      <div className="relative max-w-[1200px] w-full mx-auto px-5 md:px-12 pt-10 md:pt-20 pb-8 md:pb-14">
+        <div className="grid gap-10 md:gap-16 md:grid-cols-[1.4fr_1fr] items-center">
+          {/* Text column */}
           <div>
             {/* Role label */}
             <div
-              className="mb-6 md:mb-8 flex items-center gap-3"
+              className="mb-4 md:mb-6"
               style={{
-                fontSize: 12,
+                fontSize: 11.5,
                 letterSpacing: "0.18em",
                 textTransform: "uppercase",
                 color: "#F0A85E",
@@ -51,12 +51,13 @@ export function HeroHyperscale() {
               {IDENTITY.title}
             </div>
 
-            {/* Big editorial name — Playfair Display serif */}
+            {/* Name — both parts identical treatment: same weight, same
+                colour, no italic, no trailing period */}
             <h1
               style={{
                 fontFamily: "var(--font-display)",
-                fontSize: "clamp(48px, 9vw, 108px)",
-                lineHeight: 0.94,
+                fontSize: "clamp(44px, 8.5vw, 100px)",
+                lineHeight: 0.96,
                 letterSpacing: "-0.03em",
                 fontWeight: 500,
                 color: "#F5F1E8",
@@ -65,20 +66,12 @@ export function HeroHyperscale() {
             >
               Yashkumar
               <br />
-              <em
-                style={{
-                  fontWeight: 400,
-                  color: "#F0A85E",
-                  fontStyle: "italic",
-                }}
-              >
-                Shah.
-              </em>
+              Shah
             </h1>
 
             {/* Tagline — amber rule on the left */}
             <div
-              className="mt-8 md:mt-10 pl-4"
+              className="mt-6 md:mt-10 pl-4"
               style={{ borderLeft: "2px solid #F0A85E" }}
             >
               <p
@@ -86,51 +79,102 @@ export function HeroHyperscale() {
                   fontFamily: "var(--font-display)",
                   fontStyle: "italic",
                   fontWeight: 400,
-                  fontSize: "clamp(18px, 2.2vw, 22px)",
+                  fontSize: "clamp(17px, 2.2vw, 22px)",
                   lineHeight: 1.4,
                   color: "rgba(232, 229, 222, 0.82)",
                   maxWidth: "40ch",
                   margin: 0,
                 }}
               >
-                Fire protection design for the buildings that should not
-                burn.
+                Fire protection design for the buildings that should not burn
               </p>
             </div>
 
-            {/* Meta chips */}
-            <div
-              className="mt-10 md:mt-12 flex flex-wrap items-center gap-x-4 md:gap-x-6 gap-y-2 md:gap-y-3"
+            {/* Feature bullets — key credentials at a glance */}
+            <ul
+              className="mt-6 md:mt-8 grid gap-2 md:gap-2.5 grid-cols-1 sm:grid-cols-2"
+              style={{ margin: 0, padding: 0, listStyle: "none" }}
+            >
+              {HERO_BULLETS.map((b) => (
+                <li
+                  key={b}
+                  style={{
+                    fontFamily: "var(--font-inter)",
+                    fontSize: 13,
+                    color: "rgba(232, 229, 222, 0.78)",
+                    paddingLeft: 20,
+                    position: "relative",
+                    lineHeight: 1.5,
+                    marginTop: 8,
+                  }}
+                >
+                  <span
+                    aria-hidden
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      top: "0.55em",
+                      color: "#F0A85E",
+                      fontSize: 12,
+                      lineHeight: 1,
+                    }}
+                  >
+                    ✓
+                  </span>
+                  {b}
+                </li>
+              ))}
+            </ul>
+
+            {/* Spec-schedule table — mirrors the Codebook hero, translated
+                into the dark palette */}
+            <dl
+              className="mt-8 md:mt-10"
               style={{
-                fontSize: 12,
-                letterSpacing: "0.06em",
-                color: "rgba(232, 229, 222, 0.65)",
+                fontFamily: "var(--font-inter)",
+                fontSize: 12.5,
+                color: "rgba(232, 229, 222, 0.72)",
               }}
             >
-              <span className="flex items-center gap-2">
-                <span
-                  aria-hidden
-                  className="inline-block w-1.5 h-1.5 rounded-full"
-                  style={{ background: "#F0A85E" }}
-                />
-                {IDENTITY.location}
-              </span>
-              <span aria-hidden style={{ color: "rgba(232, 229, 222, 0.25)" }}>
-                /
-              </span>
-              <span>{IDENTITY.permit}</span>
-              <span aria-hidden style={{ color: "rgba(232, 229, 222, 0.25)" }}>
-                /
-              </span>
-              <span>{IDENTITY.years}</span>
-            </div>
+              {HERO_SPEC.map(([term, def]) => (
+                <div
+                  key={term}
+                  className="grid grid-cols-[100px_1fr] md:grid-cols-[130px_1fr] gap-3 md:gap-4 py-2 md:py-2.5"
+                  style={{ borderBottom: "1px solid rgba(232, 229, 222, 0.1)" }}
+                >
+                  <dt
+                    style={{
+                      textTransform: "uppercase",
+                      letterSpacing: "0.14em",
+                      fontSize: 10,
+                      color: "#F0A85E",
+                      fontWeight: 500,
+                      paddingTop: 3,
+                    }}
+                  >
+                    {term}
+                  </dt>
+                  <dd
+                    style={{
+                      fontFamily: "var(--font-plex-mono), monospace",
+                      fontSize: 12,
+                      margin: 0,
+                      color: "#E8E5DE",
+                    }}
+                  >
+                    {def}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          {/* Portrait — clean square, amber outline */}
+          {/* Portrait — subtle border radius, amber outline */}
           <div className="flex justify-center md:justify-end order-first md:order-none">
             <div
-              className="relative w-[240px] md:w-[340px] aspect-square overflow-hidden"
+              className="relative w-[220px] md:w-[340px] aspect-square overflow-hidden"
               style={{
+                borderRadius: 8,
                 border: "1px solid rgba(240, 168, 94, 0.4)",
                 boxShadow:
                   "0 0 0 1px rgba(240, 168, 94, 0.15), 0 20px 60px rgba(240, 168, 94, 0.08)",
@@ -141,11 +185,10 @@ export function HeroHyperscale() {
                 alt={`Portrait of ${IDENTITY.name}`}
                 fill
                 priority
-                sizes="(max-width: 768px) 240px, 340px"
+                sizes="(max-width: 768px) 220px, 340px"
                 className="object-cover"
                 style={{ filter: "brightness(0.92) contrast(1.05)" }}
               />
-              {/* Amber tint overlay */}
               <div
                 aria-hidden
                 className="absolute inset-0 mix-blend-overlay pointer-events-none"

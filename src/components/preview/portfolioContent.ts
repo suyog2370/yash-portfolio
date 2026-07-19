@@ -260,3 +260,54 @@ export const PROFESSIONAL = [
     secondary: "Irish Residence Permit holder",
   },
 ] as const;
+
+// Hero feature bullets — surface the key credentials near the tagline.
+export const HERO_BULLETS = [
+  "9+ years · Europe & US",
+  "LOD 500 BIM modelling",
+  "NFPA · FM Global · LPCB · EN",
+  "75+ projects delivered",
+] as const;
+
+// Hero spec-schedule table (mirrors the Codebook hero content).
+export const HERO_SPEC = [
+  ["Location", IDENTITY.location],
+  ["Right to work", IDENTITY.permit],
+  ["Experience", `${IDENTITY.years} · US and Europe`],
+  ["Standards", "NFPA · FM Global · LPCB · European Norms"],
+] as const;
+
+// Software used by the practice — logo slug matches file at /logos/{slug}.svg
+// when hasLogo is true; otherwise the SoftwareLogo component renders a
+// text-styled brand badge in the given brand colour.
+export type SoftwareEntry = {
+  name: string;
+  slug: string;
+  hasLogo: boolean;
+  color: string;
+};
+
+export const SOFTWARE: readonly SoftwareEntry[] = [
+  { name: "AutoCAD", slug: "autocad", hasLogo: true, color: "#E51050" },
+  { name: "Revit", slug: "revit", hasLogo: true, color: "#0696D7" },
+  { name: "Navisworks", slug: "navisworks", hasLogo: false, color: "#F58220" },
+  { name: "Autosprink RVT", slug: "autosprink", hasLogo: false, color: "#3E9B4F" },
+  { name: "Fire Elite", slug: "fireelite", hasLogo: false, color: "#C8342E" },
+  { name: "MicroBIM Fire", slug: "microbim", hasLogo: false, color: "#164B8E" },
+  {
+    name: "Autodesk Construction Cloud",
+    slug: "acc",
+    hasLogo: true,
+    color: "#000000",
+  },
+];
+
+// Section-specific bullet symbols. Each section reads a symbol from here
+// so the overall bullet system varies section-to-section but stays
+// consistent within each.
+export const BULLETS = {
+  trackRecord: "✓",
+  sectorMarker: "▪",
+  practice: "▸",
+  strengths: "✓",
+} as const;
