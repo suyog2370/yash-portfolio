@@ -1,198 +1,127 @@
 @import "tailwindcss";
 
 /* ============================================================================
- * Design tokens — blueprint-inspired engineering-editorial palette.
- * Ink on paper. Instruments in brass. Safety in restrained red.
+ * globals.css — styles consumed by the promoted Hyperscale home ("/") and
+ * the shared root layout. Draft-direction utility classes and the
+ * Blueprint palette live in src/styles/direction-drafts.css, imported only
+ * from src/app/preview/layout.tsx.
  * ========================================================================== */
+
+/* --------------------------------------------------------------------------
+ * Font aliases — Hyperscale references --font-display / --font-inter /
+ * --font-plex-mono inline. Playfair, Inter and Plex Mono themselves are
+ * loaded via next/font in src/app/layout.tsx.
+ * ------------------------------------------------------------------------ */
 
 :root {
-  /* Palette */
-  --ink: #0a2540;           /* deep blueprint blue, primary */
-  --ink-soft: #14375a;      /* softer ink for large blocks */
-  --paper: #f5f1e8;         /* warm ivory background */
-  --paper-warm: #efe9dc;    /* slightly deeper paper for panels */
-  --graphite: #4a5568;      /* secondary text */
-  --graphite-soft: #6b7280; /* muted / caption text */
-  --brass: #b08d57;         /* warm brass accent, restrained */
-  --brass-soft: #c9a877;    /* hover / softer brass */
-  --safety: #c8342e;        /* safety red — used minimally */
-  --rule: #d4c9b0;          /* hairline dividers, blueprint-style */
-  --rule-soft: #e5dcc5;     /* even softer dividers */
-
-  /* Typography */
-  --font-serif: var(--font-plex-serif), Georgia, "Times New Roman", serif;
-  --font-sans: var(--font-plex-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-mono: var(--font-plex-mono), "SF Mono", "Consolas", monospace;
   --font-display: var(--font-playfair), Georgia, "Times New Roman", serif;
-  --font-inter: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
-@theme inline {
-  --color-ink: var(--ink);
-  --color-ink-soft: var(--ink-soft);
-  --color-paper: var(--paper);
-  --color-paper-warm: var(--paper-warm);
-  --color-graphite: var(--graphite);
-  --color-graphite-soft: var(--graphite-soft);
-  --color-brass: var(--brass);
-  --color-brass-soft: var(--brass-soft);
-  --color-safety: var(--safety);
-  --color-rule: var(--rule);
-  --color-rule-soft: var(--rule-soft);
+/* --------------------------------------------------------------------------
+ * Hyperscale palette — driven off `data-theme` on <html>. Default is
+ * dark; adding data-theme="light" swaps every token in-place so inline
+ * styles that read var(--hs-*) re-paint without any React re-render.
+ * Extra rgba tokens cover the amber-glow shadows and translucent panel
+ * tints where the raw colour components differ between themes.
+ * ------------------------------------------------------------------------ */
 
-  --font-serif: var(--font-serif);
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
+:root {
+  --hs-bg: #0e1116;
+  --hs-bg-panel: #141820;
+  --hs-bg-deep: #0a0c11;
+
+  --hs-amber: #f0a85e;
+  --hs-amber-soft: #d9925a;
+
+  --hs-text: #e8e5de;
+  --hs-text-bright: #f5f1e8;
+  --hs-text-soft: rgba(232, 229, 222, 0.78);
+  --hs-text-muted: rgba(232, 229, 222, 0.55);
+
+  --hs-rule: rgba(232, 229, 222, 0.1);
+  --hs-rule-soft: rgba(232, 229, 222, 0.06);
+
+  --hs-panel-tint: rgba(232, 229, 222, 0.03);
+  --hs-panel-tint-strong: rgba(232, 229, 222, 0.1);
+
+  --hs-amber-40: rgba(240, 168, 94, 0.4);
+  --hs-amber-15: rgba(240, 168, 94, 0.15);
+  --hs-amber-12: rgba(240, 168, 94, 0.12);
+  --hs-amber-08: rgba(240, 168, 94, 0.08);
+
+  --hs-grid-line: #e8e5de;
+  --hs-grid-opacity: 0.06;
 }
 
-/* ============================================================================
- * Base — the paper and the ink. Body is Plex Sans, editorial by default.
- * ========================================================================== */
+:root[data-theme="light"] {
+  --hs-bg: #f5f1e8;
+  --hs-bg-panel: #ede6d3;
+  --hs-bg-deep: #ffffff;
+
+  --hs-amber: #a66a2e;
+  --hs-amber-soft: #c88742;
+
+  --hs-text: #0e1116;
+  --hs-text-bright: #0a0c11;
+  --hs-text-soft: rgba(14, 17, 22, 0.74);
+  --hs-text-muted: rgba(14, 17, 22, 0.5);
+
+  --hs-rule: rgba(14, 17, 22, 0.14);
+  --hs-rule-soft: rgba(14, 17, 22, 0.07);
+
+  --hs-panel-tint: rgba(14, 17, 22, 0.04);
+  --hs-panel-tint-strong: rgba(14, 17, 22, 0.09);
+
+  --hs-amber-40: rgba(166, 106, 46, 0.4);
+  --hs-amber-15: rgba(166, 106, 46, 0.16);
+  --hs-amber-12: rgba(166, 106, 46, 0.13);
+  --hs-amber-08: rgba(166, 106, 46, 0.09);
+
+  --hs-grid-line: #0e1116;
+  --hs-grid-opacity: 0.05;
+}
+
+/* --------------------------------------------------------------------------
+ * Base — the body carries the Hyperscale bg so switching themes fills
+ * any area the main hasn't painted (e.g. below-fold rubber banding).
+ * ------------------------------------------------------------------------ */
 
 html {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--hs-bg);
+  color: var(--hs-text);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
-  font-family: var(--font-sans);
+  background: var(--hs-bg);
+  color: var(--hs-text);
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   font-size: 16px;
   line-height: 1.6;
-  font-feature-settings: "kern", "liga", "ss01";
+  font-feature-settings: "kern", "liga";
+  transition:
+    background-color 200ms ease,
+    color 200ms ease;
 }
 
-/* Headings: serif, editorial weights, tight tracking */
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-serif);
-  font-weight: 400;
-  letter-spacing: -0.01em;
-  line-height: 1.15;
-  color: var(--ink);
-}
-
-/* ============================================================================
- * Blueprint utility classes — the technical labels, dimension marks,
- * eyebrow captions that make this feel like an engineering sheet.
- * ========================================================================== */
-
-.eyebrow {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--brass);
-}
-
-.tech-label {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  letter-spacing: 0.06em;
-  color: var(--graphite);
-}
-
-.tech-label-uc {
-  font-family: var(--font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--graphite-soft);
-}
-
-/* Hairline divider — like a dimension line on a drawing */
-.rule {
-  border: 0;
-  border-top: 1px solid var(--rule);
-  margin: 0;
-}
-
-.rule-brass {
-  border: 0;
-  border-top: 1px solid var(--brass);
-  margin: 0;
-}
-
-/* Blueprint corner-brackets — small L-shaped marks used as ornament,
-   evoking crop marks on a drawing plate. */
-.plate-corners {
-  position: relative;
-}
-.plate-corners::before,
-.plate-corners::after {
-  content: "";
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  border-color: var(--rule);
-  border-style: solid;
-  border-width: 0;
-}
-.plate-corners::before {
-  top: 0;
-  left: 0;
-  border-top-width: 1px;
-  border-left-width: 1px;
-}
-.plate-corners::after {
-  bottom: 0;
-  right: 0;
-  border-bottom-width: 1px;
-  border-right-width: 1px;
-}
-
-/* Dimension tick — small marks used along measurement lines */
-.dim-tick {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-left: 1px solid var(--rule);
-  border-right: 1px solid var(--rule);
-}
-
-/* ============================================================================
- * Prose defaults — for About / Approach paragraphs.
- * ========================================================================== */
-
-.prose p {
-  color: var(--ink-soft);
-  font-size: 17px;
-  line-height: 1.65;
-  margin: 0 0 1.1em;
-  text-align: justify;
-  hyphens: auto;
-}
-
-.prose p:last-child {
-  margin-bottom: 0;
-}
-
-/* Utility: apply to any multi-line paragraph block to match the
-   justify + auto-hyphen treatment used in About. */
-.text-justify-prose {
-  text-align: justify;
-  hyphens: auto;
-}
-
-/* ============================================================================
- * Selection & focus — subtle but present.
- * ========================================================================== */
+/* --------------------------------------------------------------------------
+ * Selection & focus — subtle but present. Amber follows the current
+ * theme via the shared palette token.
+ * ------------------------------------------------------------------------ */
 
 ::selection {
-  background: var(--brass);
-  color: var(--paper);
+  background: var(--hs-amber);
+  color: var(--hs-bg);
 }
 
 *:focus-visible {
-  outline: 2px solid var(--brass);
+  outline: 2px solid var(--hs-amber);
   outline-offset: 3px;
 }
 
-/* Reduced motion — respect user preference */
+/* Reduced motion — respect user preference. */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after {
@@ -202,11 +131,10 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* ============================================================================
- * Marquee — used for the software slider. Content is doubled inside the
- * track so the loop is seamless; the track shifts 50% to reveal the
- * duplicated set.
- * ========================================================================== */
+/* --------------------------------------------------------------------------
+ * Marquee — Software slider. Content is doubled inside the track so the
+ * loop is seamless; the track shifts 50% to reveal the duplicated set.
+ * ------------------------------------------------------------------------ */
 
 .marquee-mask {
   overflow: hidden;
@@ -242,11 +170,10 @@ h1, h2, h3, h4, h5, h6 {
   to { transform: translateX(-50%); }
 }
 
-/* ============================================================================
- * Practice grid — Systems / Codes / Tools / BIM cards. On mobile each
- * card sizes to its own content (short list ≠ tall empty box). From
- * md up, rows are equalised so the four cards line up.
- * ========================================================================== */
+/* --------------------------------------------------------------------------
+ * Practice grid — Systems / Codes / Tools / BIM cards. Mobile: each card
+ * sizes to its own content. From md up: rows equalised so cards line up.
+ * ------------------------------------------------------------------------ */
 
 @media (min-width: 768px) {
   .practice-grid {

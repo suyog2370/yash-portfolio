@@ -1,0 +1,163 @@
+/* ============================================================================
+ * Draft direction styles — Blueprint, Codebook, Dossier, Editorial, Split.
+ * Nothing in this file is used by the promoted Hyperscale home page. It is
+ * imported only from src/app/preview/layout.tsx so the /preview/* routes
+ * (kept for reference, 404'd in production by src/middleware.ts) still
+ * render their original palette and typography.
+ * ========================================================================== */
+
+:root {
+  /* Blueprint-inspired engineering-editorial palette. Ink on paper.
+   * Instruments in brass. Safety in restrained red. */
+  --ink: #0a2540;
+  --ink-soft: #14375a;
+  --paper: #f5f1e8;
+  --paper-warm: #efe9dc;
+  --graphite: #4a5568;
+  --graphite-soft: #6b7280;
+  --brass: #b08d57;
+  --brass-soft: #c9a877;
+  --safety: #c8342e;
+  --rule: #d4c9b0;
+  --rule-soft: #e5dcc5;
+
+  /* Typography aliases used by draft directions only. Playfair / Inter /
+   * Plex Mono live in globals.css because Hyperscale references them. */
+  --font-serif: var(--font-plex-serif), Georgia, "Times New Roman", serif;
+  --font-sans: var(--font-plex-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: var(--font-plex-mono), "SF Mono", "Consolas", monospace;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-paper: var(--paper);
+  --color-paper-warm: var(--paper-warm);
+  --color-graphite: var(--graphite);
+  --color-graphite-soft: var(--graphite-soft);
+  --color-brass: var(--brass);
+  --color-brass-soft: var(--brass-soft);
+  --color-safety: var(--safety);
+  --color-rule: var(--rule);
+  --color-rule-soft: var(--rule-soft);
+
+  --font-serif: var(--font-serif);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+/* Body defaults applied only under /preview so the draft directions get
+ * their ivory bg and blueprint-blue ink back. */
+.direction-drafts {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.6;
+  font-feature-settings: "kern", "liga", "ss01";
+}
+
+.direction-drafts h1,
+.direction-drafts h2,
+.direction-drafts h3,
+.direction-drafts h4,
+.direction-drafts h5,
+.direction-drafts h6 {
+  font-family: var(--font-serif);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+/* Blueprint utility classes — the technical labels, dimension marks,
+ * eyebrow captions that make the drafts feel like engineering sheets. */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.tech-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  color: var(--graphite);
+}
+
+.tech-label-uc {
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--graphite-soft);
+}
+
+.rule {
+  border: 0;
+  border-top: 1px solid var(--rule);
+  margin: 0;
+}
+
+.rule-brass {
+  border: 0;
+  border-top: 1px solid var(--brass);
+  margin: 0;
+}
+
+/* Blueprint corner-brackets — L-shaped marks, crop marks on a plate. */
+.plate-corners {
+  position: relative;
+}
+.plate-corners::before,
+.plate-corners::after {
+  content: "";
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: var(--rule);
+  border-style: solid;
+  border-width: 0;
+}
+.plate-corners::before {
+  top: 0;
+  left: 0;
+  border-top-width: 1px;
+  border-left-width: 1px;
+}
+.plate-corners::after {
+  bottom: 0;
+  right: 0;
+  border-bottom-width: 1px;
+  border-right-width: 1px;
+}
+
+.dim-tick {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-left: 1px solid var(--rule);
+  border-right: 1px solid var(--rule);
+}
+
+/* Prose defaults — About / Approach paragraphs in the drafts. */
+.prose p {
+  color: var(--ink-soft);
+  font-size: 17px;
+  line-height: 1.65;
+  margin: 0 0 1.1em;
+  text-align: justify;
+  hyphens: auto;
+}
+
+.prose p:last-child {
+  margin-bottom: 0;
+}
+
+.text-justify-prose {
+  text-align: justify;
+  hyphens: auto;
+}

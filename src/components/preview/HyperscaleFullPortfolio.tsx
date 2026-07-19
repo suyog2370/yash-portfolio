@@ -23,16 +23,18 @@ import { AnimatedCounter } from "./AnimatedCounter";
  * uses its own bullet symbol; headings drop trailing full stops.
  */
 
-const BG = "#0E1116";
-const BG_PANEL = "#141820";
-const BG_DEEP = "#0A0C11";
-const AMBER = "#F0A85E";
-const AMBER_SOFT = "#D9925A";
-const TEXT = "#E8E5DE";
-const TEXT_SOFT = "rgba(232, 229, 222, 0.78)";
-const TEXT_MUTED = "rgba(232, 229, 222, 0.55)";
-const RULE = "rgba(232, 229, 222, 0.1)";
-const RULE_SOFT = "rgba(232, 229, 222, 0.06)";
+// Palette resolves against CSS custom properties on <html>, so flipping
+// `data-theme` in the toggle re-paints everything without a re-render.
+const BG = "var(--hs-bg)";
+const BG_PANEL = "var(--hs-bg-panel)";
+const BG_DEEP = "var(--hs-bg-deep)";
+const AMBER = "var(--hs-amber)";
+const AMBER_SOFT = "var(--hs-amber-soft)";
+const TEXT = "var(--hs-text)";
+const TEXT_SOFT = "var(--hs-text-soft)";
+const TEXT_MUTED = "var(--hs-text-muted)";
+const RULE = "var(--hs-rule)";
+const RULE_SOFT = "var(--hs-rule-soft)";
 
 const DISPLAY = "var(--font-display)";
 const SANS = "var(--font-inter)";
@@ -66,9 +68,11 @@ function SectionHeader({
   variant?: "default" | "inverted";
   className?: string;
 }) {
-  const textColor = variant === "inverted" ? "#F5F1E8" : TEXT;
-  const descColor =
-    variant === "inverted" ? "rgba(245, 241, 232, 0.6)" : TEXT_MUTED;
+  // "inverted" is currently unused by any section but kept for future
+  // panel-over-panel headings. Both variants read from CSS custom
+  // properties so they follow the active theme.
+  const textColor = variant === "inverted" ? "var(--hs-text-bright)" : TEXT;
+  const descColor = variant === "inverted" ? "var(--hs-text-muted)" : TEXT_MUTED;
   return (
     // Outer wrapper is wide (accommodates the h2's natural line width);
     // eyebrow, rule and description sit in a narrower 70ch column so
@@ -178,6 +182,9 @@ function SoftwareItem({ item }: { item: SoftwareEntry }) {
       className="flex-shrink-0 flex items-center justify-center"
       style={{
         height: PLAQUE_HEIGHT,
+        // Fixed ivory in both themes — the vendor logo files ship on
+        // baked white backgrounds, so the plaque needs to stay light
+        // regardless of dark/light mode for the logos to read.
         background: "#F5F1E8",
         padding: "6px 14px",
         borderRadius: 6,
@@ -429,9 +436,7 @@ export function HyperscaleFullPortfolio() {
                 className="grid gap-3 md:gap-8 md:grid-cols-[240px_1fr] py-4 md:py-6"
                 style={{
                   borderTop:
-                    i === 0
-                      ? `1px solid ${AMBER}`
-                      : "var(--sector-rule, 1px solid rgba(232, 229, 222, 0.08))",
+                    i === 0 ? `1px solid ${AMBER}` : `1px solid ${RULE}`,
                 }}
               >
                 <div className="flex items-start gap-2.5">
@@ -907,7 +912,7 @@ function ContactRow() {
               width: 40,
               height: 40,
               borderRadius: 8,
-              background: "rgba(240, 168, 94, 0.08)",
+              background: "var(--hs-amber-08)",
               color: AMBER,
               marginBottom: 12,
             }}
@@ -936,7 +941,7 @@ function ContactRow() {
           color: TEXT,
           textDecoration: "underline",
           textUnderlineOffset: 4,
-          textDecorationColor: "rgba(232, 229, 222, 0.35)",
+          textDecorationColor: "var(--hs-text-muted)",
           wordBreak: "break-word" as const,
         };
         return (

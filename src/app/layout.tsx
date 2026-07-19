@@ -66,6 +66,25 @@ export const metadata: Metadata = {
   },
 };
 
+// Pre-hydration theme bootstrap. Runs synchronously in <head> before any
+// paint so the correct dark/light palette is applied on first render,
+// avoiding a flash-of-wrong-theme when the stored preference is light.
+// Same rule the ThemeToggle uses at runtime: localStorage > OS preference
+// > dark as the design's home base.
+const THEME_BOOTSTRAP = `
+(function(){
+  try {
+    var stored = localStorage.getItem('hsTheme');
+    var theme = stored === 'light' || stored === 'dark'
+      ? stored
+      : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.dataset.theme = theme;
+  } catch (e) {
+    document.documentElement.dataset.theme = 'dark';
+  }
+})();
+`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -74,9 +93,20 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      // The pre-hydration script below writes `data-theme` on this
+      // element before React hydrates, so its attributes drift from
+      // the SSR-rendered HTML. suppressHydrationWarning silences the
+      // mismatch on this element only (attributes, not children).
+      suppressHydrationWarning
       className={`${plexSerif.variable} ${plexSans.variable} ${plexMono.variable} ${playfair.variable} ${inter.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col bg-paper text-ink">{children}</body>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOTSTRAP }} />
+      </head>
+      {/* Base bg/text come from globals.css (Hyperscale palette).
+          Draft directions under /preview get their ivory-paper backdrop
+          from src/app/preview/layout.tsx. */}
+      <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
 }
