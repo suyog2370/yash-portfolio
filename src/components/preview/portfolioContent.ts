@@ -261,18 +261,14 @@ export const PROFESSIONAL = [
   },
 ] as const;
 
-// Hero feature bullets — surface the key credentials near the tagline.
-export const HERO_BULLETS = [
-  "9+ years · Europe & US",
-  "LOD 500 BIM modelling",
-  "NFPA · FM Global · LPCB · EN",
-  "75+ projects delivered",
-] as const;
-
-// Hero spec-schedule table — kept minimal so it does not repeat the
-// feature bullets above (which already cover experience + standards).
-// Only the credentials that need to be surfaced explicitly stay here.
+// Hero spec-schedule — a single key/value block covering headline
+// credentials, experience, standards, and hire info. Ordered from
+// selling-point rows down to practical / hire info.
 export const HERO_SPEC = [
+  ["Experience", "9+ years · Europe & US"],
+  ["Projects", "75+ delivered"],
+  ["BIM", "LOD 500 modelling"],
+  ["Standards", "NFPA · FM Global · LPCB · EN"],
   ["Location", IDENTITY.location],
   ["Right to work", IDENTITY.permit],
 ] as const;

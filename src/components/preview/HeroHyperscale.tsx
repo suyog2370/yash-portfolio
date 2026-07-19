@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { IDENTITY, HERO_BULLETS, HERO_SPEC } from "./portfolioContent";
+import { IDENTITY, HERO_SPEC } from "./portfolioContent";
 
 /**
  * HeroHyperscale — Direction C, dark mission-critical aesthetic.
@@ -90,46 +90,12 @@ export function HeroHyperscale() {
               </p>
             </div>
 
-            {/* Feature bullets — key credentials at a glance */}
-            <ul
-              className="mt-6 md:mt-8 grid gap-2 md:gap-2.5 grid-cols-1 sm:grid-cols-2"
-              style={{ margin: 0, padding: 0, listStyle: "none" }}
-            >
-              {HERO_BULLETS.map((b) => (
-                <li
-                  key={b}
-                  style={{
-                    fontFamily: "var(--font-inter)",
-                    fontSize: 13,
-                    color: "rgba(232, 229, 222, 0.78)",
-                    paddingLeft: 20,
-                    position: "relative",
-                    lineHeight: 1.5,
-                    marginTop: 8,
-                  }}
-                >
-                  <span
-                    aria-hidden
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      top: "0.55em",
-                      color: "#F0A85E",
-                      fontSize: 12,
-                      lineHeight: 1,
-                    }}
-                  >
-                    ✓
-                  </span>
-                  {b}
-                </li>
-              ))}
-            </ul>
-
-            {/* Spec-schedule table — mirrors the Codebook hero, translated
-                into the dark palette */}
+            {/* Spec-schedule table — single key/value block covering the
+                headline credentials and hire info. Replaces the earlier
+                bullet-list treatment; two columns on desktop so six rows
+                stay visually compact, single column on mobile. */}
             <dl
-              className="mt-8 md:mt-10"
+              className="mt-8 md:mt-10 grid gap-x-6 md:gap-x-10 md:grid-cols-2"
               style={{
                 fontFamily: "var(--font-inter)",
                 fontSize: 12.5,
@@ -139,7 +105,7 @@ export function HeroHyperscale() {
               {HERO_SPEC.map(([term, def]) => (
                 <div
                   key={term}
-                  className="grid grid-cols-[100px_1fr] md:grid-cols-[130px_1fr] gap-3 md:gap-4 py-2 md:py-2.5"
+                  className="grid grid-cols-[100px_1fr] md:grid-cols-[110px_1fr] gap-3 md:gap-4 py-2 md:py-2.5"
                   style={{ borderBottom: "1px solid rgba(232, 229, 222, 0.1)" }}
                 >
                   <dt
