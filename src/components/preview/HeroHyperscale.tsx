@@ -35,8 +35,8 @@ export function HeroHyperscale() {
       {/* Main content — reduced padding especially at bottom */}
       <div className="relative max-w-[1200px] w-full mx-auto px-5 md:px-12 pt-10 md:pt-20 pb-8 md:pb-14">
         <div className="grid gap-10 md:gap-16 md:grid-cols-[1.4fr_1fr] items-center">
-          {/* Text column */}
-          <div>
+          {/* Text column — centre-aligned on mobile, left-aligned from md up. */}
+          <div className="text-center md:text-left">
             {/* Role label */}
             <div
               className="mb-4 md:mb-6"
@@ -69,12 +69,15 @@ export function HeroHyperscale() {
               Shah
             </h1>
 
-            {/* Tagline — amber rule on the left */}
+            {/* Tagline — amber rule on the left (desktop). On mobile
+                the whole hero is centred, so the left border would
+                look off-axis; drop it below md. */}
             <div
-              className="mt-6 md:mt-10 pl-4"
-              style={{ borderLeft: "2px solid #F0A85E" }}
+              className="mt-6 md:mt-10 md:pl-4 md:border-l-2"
+              style={{ borderColor: "#F0A85E" }}
             >
               <p
+                className="mx-auto md:mx-0"
                 style={{
                   fontFamily: "var(--font-display)",
                   fontStyle: "italic",
@@ -90,48 +93,68 @@ export function HeroHyperscale() {
               </p>
             </div>
 
-            {/* Spec-schedule table — single key/value block covering the
-                headline credentials and hire info. Replaces the earlier
-                bullet-list treatment; two columns on desktop so six rows
-                stay visually compact, single column on mobile. */}
+            {/* Spec-schedule — label on top, value below. Two columns
+                on every breakpoint so six specs read as three tight
+                rows instead of six full-width strips (the mobile
+                stacked version was eating too much vertical space). */}
             <dl
-              className="mt-8 md:mt-10 grid gap-x-6 md:gap-x-10 md:grid-cols-2"
+              className="mt-8 md:mt-10 grid gap-x-4 md:gap-x-10 grid-cols-2 text-center md:text-left"
               style={{
                 fontFamily: "var(--font-inter)",
                 fontSize: 12.5,
                 color: "rgba(232, 229, 222, 0.72)",
               }}
             >
-              {HERO_SPEC.map(([term, def]) => (
-                <div
-                  key={term}
-                  className="grid grid-cols-[100px_1fr] md:grid-cols-[110px_1fr] gap-3 md:gap-4 py-2 md:py-2.5"
-                  style={{ borderBottom: "1px solid rgba(232, 229, 222, 0.1)" }}
-                >
-                  <dt
-                    style={{
-                      textTransform: "uppercase",
-                      letterSpacing: "0.14em",
-                      fontSize: 10,
-                      color: "#F0A85E",
-                      fontWeight: 500,
-                      paddingTop: 3,
-                    }}
+              {HERO_SPEC.map(([term, def]) => {
+                const isStandards = term === "Standards";
+                return (
+                  <div
+                    key={term}
+                    className="py-2 md:py-3"
+                    style={{ borderBottom: "1px solid rgba(232, 229, 222, 0.1)" }}
                   >
-                    {term}
-                  </dt>
-                  <dd
-                    style={{
-                      fontFamily: "var(--font-plex-mono), monospace",
-                      fontSize: 12,
-                      margin: 0,
-                      color: "#E8E5DE",
-                    }}
-                  >
-                    {def}
-                  </dd>
-                </div>
-              ))}
+                    <dt
+                      style={{
+                        textTransform: "uppercase",
+                        letterSpacing: "0.14em",
+                        fontSize: 10,
+                        color: "#F0A85E",
+                        fontWeight: 500,
+                        marginBottom: 4,
+                      }}
+                    >
+                      {term}
+                    </dt>
+                    <dd
+                      style={{
+                        fontFamily: "var(--font-plex-mono), monospace",
+                        fontSize: 12,
+                        lineHeight: 1.35,
+                        margin: 0,
+                        color: "#E8E5DE",
+                      }}
+                    >
+                      {isStandards ? (
+                        <>
+                          {/* Mobile: 2×2 mini-grid, columns sized to
+                              content so NFPA and LPCB sit close, not
+                              across a half-width gutter. Desktop:
+                              single inline line separated by dots. */}
+                          <span className="md:hidden flex flex-col items-center gap-y-1">
+                            <span>NFPA · LPCB</span>
+                            <span>FM Global · EN</span>
+                          </span>
+                          <span className="hidden md:inline">
+                            NFPA · FM Global · LPCB · EN
+                          </span>
+                        </>
+                      ) : (
+                        def
+                      )}
+                    </dd>
+                  </div>
+                );
+              })}
             </dl>
           </div>
 

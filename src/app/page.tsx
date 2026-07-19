@@ -1,27 +1,25 @@
-import { Hero } from "@/components/sections/Hero";
-import { About } from "@/components/sections/About";
-import { CurrentFocus } from "@/components/sections/CurrentFocus";
-import { TrackRecord } from "@/components/sections/TrackRecord";
-import { Sectors } from "@/components/sections/Sectors";
-import { Expertise } from "@/components/sections/Expertise";
-import { Approach } from "@/components/sections/Approach";
-import { Career } from "@/components/sections/Career";
-import { Credentials } from "@/components/sections/Credentials";
-import { Contact } from "@/components/sections/Contact";
+import { HeroHyperscale } from "@/components/preview/HeroHyperscale";
+import { HyperscaleFullPortfolio } from "@/components/preview/HyperscaleFullPortfolio";
 
+/**
+ * Home — Hyperscale direction, promoted from /preview/hyperscale.
+ * Renders the full portfolio (hero + all sections) in the deep charcoal
+ * + amber palette. Other design directions still live under
+ * src/app/preview/* for reference but are 404'd in production by
+ * src/middleware.ts.
+ */
 export default function Home() {
   return (
-    <main className="w-full">
-      <Hero />
-      <About />
-      <CurrentFocus />
-      <TrackRecord />
-      <Sectors />
-      <Expertise />
-      <Approach />
-      <Career />
-      <Credentials />
-      <Contact />
+    <main
+      className="w-full"
+      style={{
+        background: "#0E1116",
+        color: "#E8E5DE",
+        fontFamily: '"IBM Plex Sans", sans-serif',
+      }}
+    >
+      <HeroHyperscale />
+      <HyperscaleFullPortfolio />
     </main>
   );
 }

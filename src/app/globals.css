@@ -201,3 +201,56 @@ h1, h2, h3, h4, h5, h6 {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ============================================================================
+ * Marquee — used for the software slider. Content is doubled inside the
+ * track so the loop is seamless; the track shifts 50% to reveal the
+ * duplicated set.
+ * ========================================================================== */
+
+.marquee-mask {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0,
+    #000 6%,
+    #000 94%,
+    transparent 100%
+  );
+}
+
+.marquee-track {
+  display: flex;
+  gap: 20px;
+  width: max-content;
+  animation: marquee-scroll 40s linear infinite;
+}
+
+.marquee-mask:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* ============================================================================
+ * Practice grid — Systems / Codes / Tools / BIM cards. On mobile each
+ * card sizes to its own content (short list ≠ tall empty box). From
+ * md up, rows are equalised so the four cards line up.
+ * ========================================================================== */
+
+@media (min-width: 768px) {
+  .practice-grid {
+    align-items: stretch;
+    grid-auto-rows: 1fr;
+  }
+}

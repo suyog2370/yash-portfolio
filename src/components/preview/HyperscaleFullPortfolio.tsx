@@ -1,4 +1,3 @@
-import Image from "next/image";
 import {
   SECTORS,
   EXPERTISE,
@@ -14,6 +13,7 @@ import {
   BULLETS,
   type SoftwareEntry,
 } from "./portfolioContent";
+import { AnimatedCounter } from "./AnimatedCounter";
 
 /**
  * HyperscaleFullPortfolio — Rev 3 client feedback.
@@ -38,181 +38,165 @@ const DISPLAY = "var(--font-display)";
 const SANS = "var(--font-inter)";
 const MONO = "var(--font-plex-mono), 'IBM Plex Mono', monospace";
 
-const sectionShell = "py-20 md:py-28";
+// Consistent section padding on both mobile and desktop. Kept tight —
+// each section contributes ~40/56px per side so adjacent sections read
+// as one continuous story rather than isolated blocks.
+const sectionShell = "py-10 md:py-14";
 const container = "max-w-[1200px] mx-auto px-5 md:px-12";
+// Narrower container used for reading sections (About, Sectors, Career)
+// so the eye does not have to travel across empty desktop whitespace.
+const readingWidth = "max-w-[880px] mx-auto";
 
-function SectionLabel({ children }: { children: string }) {
+/**
+ * SectionHeader — centred small heading block used across every
+ * section. Renders eyebrow label + hairline rule + optional big
+ * heading + optional description, all centre-aligned in a narrow
+ * column. Replaces the old 2-column [label sidebar | content] pattern.
+ */
+function SectionHeader({
+  label,
+  heading,
+  description,
+  variant = "default",
+  className = "mb-8 md:mb-10",
+}: {
+  label: string;
+  heading?: React.ReactNode;
+  description?: string;
+  variant?: "default" | "inverted";
+  className?: string;
+}) {
+  const textColor = variant === "inverted" ? "#F5F1E8" : TEXT;
+  const descColor =
+    variant === "inverted" ? "rgba(245, 241, 232, 0.6)" : TEXT_MUTED;
   return (
-    <div
-      style={{
-        fontFamily: SANS,
-        fontSize: 11,
-        letterSpacing: "0.18em",
-        textTransform: "uppercase",
-        color: AMBER,
-        fontWeight: 500,
-        marginBottom: 12,
-      }}
-    >
-      {children}
+    // Outer wrapper is wide (accommodates the h2's natural line width);
+    // eyebrow, rule and description sit in a narrower 70ch column so
+    // long body copy stays readable.
+    <div className={`text-center mx-auto ${className}`}>
+      <div style={{ maxWidth: "70ch", margin: "0 auto" }}>
+        <div
+          style={{
+            fontFamily: SANS,
+            fontSize: 11,
+            letterSpacing: "0.18em",
+            textTransform: "uppercase",
+            color: AMBER,
+            fontWeight: 500,
+            marginBottom: 8,
+          }}
+        >
+          {label}
+        </div>
+        <hr
+          style={{
+            border: 0,
+            borderTop: `1px solid ${AMBER}`,
+            width: 32,
+            margin: "0 auto 14px",
+          }}
+        />
+      </div>
+      {heading && (
+        <h2
+          style={{
+            fontFamily: DISPLAY,
+            fontSize: "clamp(26px, 3.8vw, 40px)",
+            lineHeight: 1.15,
+            letterSpacing: "-0.02em",
+            color: textColor,
+            fontWeight: 500,
+            margin: "0 auto",
+            // Wide enough for the longest single-line heading on
+            // desktop; on mobile it collapses to the section container.
+            maxWidth: "min(1000px, 100%)",
+          }}
+        >
+          {heading}
+        </h2>
+      )}
+      {description && (
+        <p
+          style={{
+            fontFamily: SANS,
+            marginTop: 14,
+            fontSize: 15,
+            lineHeight: 1.65,
+            color: descColor,
+            fontWeight: 300,
+            maxWidth: "70ch",
+            marginLeft: "auto",
+            marginRight: "auto",
+          }}
+        >
+          {description}
+        </p>
+      )}
     </div>
   );
 }
 
-function LabelRule() {
-  return (
-    <hr
-      style={{
-        border: 0,
-        borderTop: `1px solid ${AMBER}`,
-        width: 32,
-        marginBottom: 24,
-      }}
-    />
-  );
-}
-
 /**
- * A single software item. If hasLogo is true, renders the SVG from
- * /logos/{slug}.svg. Otherwise renders a clean text-styled brand badge
- * in the vendor's colour — no handcoded fake logo, just a labelled tile.
+ * A single software item on the marquee track. The vendor logo files
+ * we have ship as colour-on-white (webp/avif/svg with baked backgrounds)
+ * rather than dark-on-transparent, so a raw CSS invert wipes them out.
+ * Instead we render each logo on a tight rounded white plaque — this is
+ * how brand grids on dark backgrounds are conventionally shown, and it
+ * keeps the vendor's native colours intact. Logos that already ship
+ * light (invert: true) skip the plaque and sit directly on the bg.
+ * Missing files fall back to a clean text wordmark so the track stays
+ * visually consistent.
  */
 function SoftwareItem({ item }: { item: SoftwareEntry }) {
-  return (
-    <div
-      className="flex-shrink-0 flex items-center gap-3 px-5 py-3"
-      style={{
-        background: "rgba(232, 229, 222, 0.03)",
-        border: `1px solid ${RULE}`,
-        borderRadius: 6,
-        minWidth: "fit-content",
-      }}
-    >
-      {item.hasLogo ? (
-        <div
-          className="relative flex-shrink-0"
-          style={{
-            width: 32,
-            height: 32,
-            background: TEXT,
-            padding: 4,
-            borderRadius: 4,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`/logos/${item.slug}.svg`}
-            alt={`${item.name} logo`}
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "contain",
-            }}
-          />
-        </div>
-      ) : (
-        <div
-          className="flex-shrink-0 flex items-center justify-center"
-          style={{
-            width: 32,
-            height: 32,
-            background: item.color,
-            borderRadius: 4,
-            color: "#FFF",
-            fontFamily: SANS,
-            fontSize: 15,
-            fontWeight: 700,
-            letterSpacing: "-0.03em",
-          }}
-        >
-          {item.name.charAt(0)}
-        </div>
-      )}
-      <span
-        style={{
-          fontFamily: SANS,
-          fontSize: 14,
-          fontWeight: 500,
-          color: TEXT,
-          letterSpacing: "-0.01em",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {item.name}
-      </span>
-    </div>
-  );
-}
+  const logoSrc = `/logos/${item.slug}.${item.ext ?? "svg"}`;
+  const PLAQUE_HEIGHT = 44;
 
-/**
- * Standards badges — text-styled badges for NFPA / FM Global / LPCB / EN.
- * Consistent visual across the four, rendered inline.
- */
-type StandardBadge = { text: string; sub?: string; color: string };
-const STANDARDS_BADGES: StandardBadge[] = [
-  { text: "NFPA", sub: "National Fire Protection Association", color: "#C8342E" },
-  { text: "FM", sub: "FM Global Data Sheets", color: "#1E4B8E" },
-  { text: "LPCB", sub: "Loss Prevention Certification Board", color: "#B58B32" },
-  { text: "EN", sub: "European Norms", color: "#1E4B8E" },
-];
-
-function StandardBadgeTile({ badge }: { badge: StandardBadge }) {
-  return (
-    <div
-      className="flex items-center gap-3 px-4 py-3"
-      style={{
-        background: "rgba(232, 229, 222, 0.03)",
-        border: `1px solid ${RULE}`,
-        borderRadius: 6,
-        flex: "1 1 0",
-        minWidth: 0,
-      }}
-    >
+  if (!item.hasLogo) {
+    return (
       <div
-        className="flex-shrink-0 flex items-center justify-center"
-        style={{
-          width: 44,
-          height: 44,
-          background: badge.color,
-          color: "#FFF",
-          fontFamily: SANS,
-          fontSize: 15,
-          fontWeight: 700,
-          letterSpacing: "-0.02em",
-          borderRadius: 4,
-        }}
+        className="flex-shrink-0 flex items-center px-6"
+        style={{ height: PLAQUE_HEIGHT }}
       >
-        {badge.text}
-      </div>
-      <div style={{ minWidth: 0 }}>
-        <div
+        <span
           style={{
             fontFamily: SANS,
-            fontSize: 13,
+            fontSize: 18,
             fontWeight: 600,
             color: TEXT,
-            letterSpacing: "-0.005em",
+            letterSpacing: "-0.015em",
+            whiteSpace: "nowrap",
           }}
         >
-          {badge.text}
-        </div>
-        {badge.sub && (
-          <div
-            style={{
-              fontFamily: SANS,
-              fontSize: 10.5,
-              color: TEXT_MUTED,
-              lineHeight: 1.35,
-              marginTop: 1,
-            }}
-          >
-            {badge.sub}
-          </div>
-        )}
+          {item.name}
+        </span>
       </div>
+    );
+  }
+
+  return (
+    <div
+      className="flex-shrink-0 flex items-center justify-center"
+      style={{
+        height: PLAQUE_HEIGHT,
+        background: "#F5F1E8",
+        padding: "6px 14px",
+        borderRadius: 6,
+      }}
+    >
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src={logoSrc}
+        alt={`${item.name} logo`}
+        style={{
+          height: "100%",
+          width: "auto",
+          objectFit: "contain",
+          // The vendor ships this logo white-on-transparent, which
+          // vanishes on the white plaque. Invert it so it renders
+          // dark and reads like the other marks.
+          filter: item.invert ? "invert(1)" : "none",
+        }}
+      />
     </div>
   );
 }
@@ -227,35 +211,19 @@ export function HyperscaleFullPortfolio() {
       >
         <div className={container}>
           <div style={{ maxWidth: "70ch", margin: "0 auto" }}>
-            <SectionLabel>About</SectionLabel>
-            <LabelRule />
-            <p
-              style={{
-                fontFamily: SANS,
-                fontSize: 12,
-                color: TEXT_MUTED,
-                lineHeight: 1.55,
-                marginBottom: 24,
-              }}
-            >
-              Mechanical engineer by training. Fire protection engineer by
-              choice.
-            </p>
-            <h2
-              style={{
-                fontFamily: DISPLAY,
-                fontSize: "clamp(28px, 4vw, 44px)",
-                lineHeight: 1.12,
-                letterSpacing: "-0.02em",
-                marginBottom: 28,
-                fontWeight: 500,
-                color: TEXT,
-              }}
-            >
-              I design the systems that buildings{" "}
-              <em style={{ fontStyle: "italic", color: AMBER_SOFT }}>quietly</em>{" "}
-              depend on
-            </h2>
+            <SectionHeader
+              label="About"
+              description="Mechanical engineer by training. Fire protection engineer by choice."
+              heading={
+                <>
+                  I design the systems that buildings{" "}
+                  <em style={{ fontStyle: "italic", color: AMBER_SOFT }}>
+                    quietly
+                  </em>{" "}
+                  depend on
+                </>
+              }
+            />
             <div
               style={{
                 fontFamily: SANS,
@@ -279,35 +247,36 @@ export function HyperscaleFullPortfolio() {
 
       {/* ==================== AT PRESENT — tighter spacing + standards ==================== */}
       <section
-        className="py-16 md:py-20"
+        className={sectionShell}
         style={{ background: BG_PANEL, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24">
-            <div>
-              <SectionLabel>At present</SectionLabel>
-              <LabelRule />
-            </div>
-            <div>
-              <p
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(20px, 2.6vw, 30px)",
-                  lineHeight: 1.35,
-                  letterSpacing: "-0.015em",
-                  color: TEXT,
-                  fontWeight: 400,
-                  fontStyle: "italic",
-                  marginTop: 0,
-                }}
-              >
-                Leading fire protection design at{" "}
-                <span style={{ color: AMBER, fontStyle: "normal", fontWeight: 500 }}>
-                  Writech Industrial Services
-                </span>{" "}
-                in Ireland — focused on hyperscale data centres, power
-                generation, and mission-critical infrastructure across Europe.
-              </p>
+          {/* No heading param — the italic sentence below IS the heading
+              here, so drop the outer margin to keep the eyebrow → italic
+              gap the same tight ~14px other sections show between the
+              eyebrow rule and their h2. */}
+          <SectionHeader label="At present" className="mb-0" />
+          <div style={{ maxWidth: "70ch", margin: "0 auto" }}>
+            <p
+              style={{
+                fontFamily: DISPLAY,
+                fontSize: "clamp(20px, 2.6vw, 30px)",
+                lineHeight: 1.35,
+                letterSpacing: "-0.015em",
+                color: TEXT,
+                fontWeight: 400,
+                fontStyle: "italic",
+                marginTop: 0,
+                textAlign: "center",
+              }}
+            >
+              Leading fire protection design at{" "}
+              <span style={{ color: AMBER, fontStyle: "normal", fontWeight: 500 }}>
+                Writech Industrial Services
+              </span>{" "}
+              in Ireland — focused on hyperscale data centres, power
+              generation, and mission-critical infrastructure across Europe.
+            </p>
 
               {/* Focus tags */}
               <div className="mt-6 md:mt-8 grid gap-4 grid-cols-2 md:grid-cols-4">
@@ -346,29 +315,6 @@ export function HyperscaleFullPortfolio() {
                 ))}
               </div>
 
-              {/* Standards row — badges with brand colour, on a single row on
-                  desktop and 2 columns on mobile */}
-              <div className="mt-6 md:mt-8">
-                <div
-                  style={{
-                    fontFamily: SANS,
-                    fontSize: 10,
-                    letterSpacing: "0.16em",
-                    textTransform: "uppercase",
-                    color: AMBER,
-                    fontWeight: 500,
-                    marginBottom: 10,
-                  }}
-                >
-                  Standards I design to
-                </div>
-                <div className="grid gap-3 grid-cols-2 md:grid-cols-4">
-                  {STANDARDS_BADGES.map((b) => (
-                    <StandardBadgeTile key={b.text} badge={b} />
-                  ))}
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
@@ -379,37 +325,24 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG_DEEP, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24 mb-10 md:mb-14">
-            <div>
-              <SectionLabel>Track record</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "52ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(26px, 3.8vw, 40px)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
-                Nine years, more than a hundred buildings
-              </h2>
-            </div>
-          </div>
+          <SectionHeader
+            label="Track record"
+            heading="Nine years, more than a hundred buildings"
+          />
 
-          {/* Metric numbers — Playfair Display italic (kept from prior fix) */}
+          {/* Metric numbers — Playfair Display italic; each metric
+              animates from 0 to its value when the section scrolls into
+              view (see AnimatedCounter). */}
           <div className="grid gap-6 md:gap-10 grid-cols-2 lg:grid-cols-4 mb-10 md:mb-14">
             {STRENGTHS.metrics.map((m) => (
               <div
                 key={m.label}
                 style={{ borderTop: `1px solid ${AMBER}`, paddingTop: 14 }}
               >
-                <div
+                <AnimatedCounter
+                  value={m.value}
                   style={{
+                    display: "block",
                     fontFamily: DISPLAY,
                     fontStyle: "italic",
                     fontSize: "clamp(38px, 5.5vw, 64px)",
@@ -419,9 +352,7 @@ export function HyperscaleFullPortfolio() {
                     fontWeight: 500,
                     marginBottom: 10,
                   }}
-                >
-                  {m.value}
-                </div>
+                />
                 <div
                   style={{
                     fontFamily: SANS,
@@ -483,44 +414,15 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24 mb-8 md:mb-12">
-            <div>
-              <SectionLabel>Sectors</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "56ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(26px, 3.8vw, 40px)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
-                The buildings I design fire protection for
-              </h2>
-              <p
-                style={{
-                  fontFamily: SANS,
-                  marginTop: 14,
-                  fontSize: 15,
-                  lineHeight: 1.65,
-                  color: TEXT_MUTED,
-                  fontWeight: 300,
-                }}
-              >
-                Sectors that share the same brief: stay standing, stay
-                serviceable, keep people safe.
-              </p>
-            </div>
-          </div>
+          <SectionHeader
+            label="Sectors"
+            heading="The buildings I design fire protection for"
+            description="Sectors that share the same brief: stay standing, stay serviceable, keep people safe."
+          />
 
           {/* Codebook-style spec rows — sector name on left, description on
               right. Thin rule between rows; thinner still on mobile. */}
-          <div className="sectors-list">
+          <div className={`${readingWidth} sectors-list`}>
             {SECTORS.map((sector, i) => (
               <article
                 key={sector.name}
@@ -568,6 +470,8 @@ export function HyperscaleFullPortfolio() {
                     fontWeight: 300,
                     margin: 0,
                     paddingLeft: 22,
+                    textAlign: "justify",
+                    hyphens: "auto",
                   }}
                   className="md:!pl-0"
                 >
@@ -575,7 +479,6 @@ export function HyperscaleFullPortfolio() {
                 </p>
               </article>
             ))}
-            <div style={{ borderTop: `1px solid ${AMBER}` }} />
           </div>
         </div>
       </section>
@@ -586,48 +489,17 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG_PANEL, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24 mb-10 md:mb-14">
-            <div>
-              <SectionLabel>What I bring to a project</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "52ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(26px, 3.8vw, 40px)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
-                Systems, standards, tools, coordination
-              </h2>
-              <p
-                style={{
-                  fontFamily: SANS,
-                  marginTop: 14,
-                  fontSize: 15,
-                  lineHeight: 1.7,
-                  color: TEXT_MUTED,
-                  fontWeight: 300,
-                }}
-              >
-                The systems I design, the codes I write to, the tools I work
-                in, and how I coordinate with the rest of the design team.
-              </p>
-            </div>
-          </div>
+          <SectionHeader
+            label="What I bring to a project"
+            heading="Systems, standards, tools, coordination"
+            description="The systems I design, the codes I write to, the tools I work in, and how I coordinate with the rest of the design team."
+          />
 
-          {/* Grid with grid-auto-rows:1fr + align-items:stretch forces
-              equal heights on desktop. Each card is a flex column so the
-              bottom seal anchors even when list is shorter. */}
-          <div
-            className="grid gap-4 md:gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4"
-            style={{ alignItems: "stretch", gridAutoRows: "1fr" }}
-          >
+          {/* Equal-height cards on desktop (grid-auto-rows:1fr +
+              align-items:stretch), natural height on mobile so short
+              lists don't leave big empty gaps. `practice-grid` class
+              carries the desktop-only rules — see globals.css. */}
+          <div className="practice-grid grid gap-4 md:gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {EXPERTISE.map((col) => (
               <div
                 key={col.title}
@@ -690,38 +562,6 @@ export function HyperscaleFullPortfolio() {
                     </li>
                   ))}
                 </ul>
-                <div
-                  aria-hidden
-                  style={{
-                    marginTop: 20,
-                    paddingTop: 8,
-                    borderTop: `1px solid ${RULE_SOFT}`,
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 6,
-                  }}
-                >
-                  <span
-                    style={{
-                      width: 6,
-                      height: 6,
-                      borderRadius: "50%",
-                      background: AMBER,
-                      display: "inline-block",
-                    }}
-                  />
-                  <span
-                    style={{
-                      fontFamily: MONO,
-                      fontSize: 10.5,
-                      letterSpacing: "0.14em",
-                      textTransform: "uppercase",
-                      color: TEXT_MUTED,
-                    }}
-                  >
-                    {col.items.length} items
-                  </span>
-                </div>
               </div>
             ))}
           </div>
@@ -734,50 +574,26 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24 mb-10 md:mb-12">
-            <div>
-              <SectionLabel>Software</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "56ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(26px, 3.8vw, 40px)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
-                Software in the daily kit
-              </h2>
-              <p
-                style={{
-                  fontFamily: SANS,
-                  marginTop: 14,
-                  fontSize: 15,
-                  lineHeight: 1.7,
-                  color: TEXT_MUTED,
-                  fontWeight: 300,
-                }}
-              >
-                The specialised packages I rely on for precise planning,
-                analysis, hydraulic simulation, and multi-discipline
-                coordination.
-              </p>
-            </div>
-          </div>
+          <SectionHeader
+            label="Software"
+            heading="Software in the daily kit"
+            description="The specialised packages I rely on for precise planning, analysis, hydraulic simulation, and multi-discipline coordination."
+          />
 
-          {/* Horizontal scroll on mobile, wrap on desktop */}
-          <div
-            className="flex flex-wrap gap-3 md:gap-4 overflow-x-auto md:overflow-visible pb-2 md:pb-0"
-            style={{ WebkitOverflowScrolling: "touch" }}
-          >
-            {SOFTWARE.map((sw) => (
-              <SoftwareItem key={sw.slug} item={sw} />
-            ))}
+          {/* Continuous marquee slider — the items list is duplicated
+              inside the track so the loop reads as seamless. Hover to
+              pause. Reduced-motion users get the animation paused via
+              the global stylesheet. */}
+          <div className="marquee-mask">
+            <div className="marquee-track">
+              {SOFTWARE.map((sw) => (
+                <SoftwareItem key={sw.slug} item={sw} />
+              ))}
+              {/* Duplicate set for the seamless loop */}
+              {SOFTWARE.map((sw) => (
+                <SoftwareItem key={`${sw.slug}-loop`} item={sw} />
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -788,36 +604,27 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG_DEEP, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24 mb-10 md:mb-14">
-            <div>
-              <SectionLabel>Approach</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "54ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(28px, 4.5vw, 48px)",
-                  lineHeight: 1.05,
-                  letterSpacing: "-0.025em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
+          <SectionHeader
+            label="Approach"
+            heading={
+              <>
                 Three things I hold to on{" "}
                 <em style={{ fontStyle: "italic", color: AMBER }}>every</em>{" "}
                 project
-              </h2>
-            </div>
-          </div>
+              </>
+            }
+          />
 
           {/* Editorial-style numbering — big italic Playfair number as
-              a drop cap above each principle. Matches the Editorial
-              direction's approach styling. */}
+              a drop cap above each principle. Each principle is
+              centre-aligned within its column so the number, title and
+              body all sit under a common axis. */}
           <div className="grid gap-10 md:gap-12 md:grid-cols-3">
             {PRINCIPLES.map((p, i) => (
-              <article key={p.title}>
+              <article
+                key={p.title}
+                style={{ textAlign: "center", maxWidth: "38ch", margin: "0 auto" }}
+              >
                 <div
                   aria-hidden
                   style={{
@@ -854,8 +661,7 @@ export function HyperscaleFullPortfolio() {
                     lineHeight: 1.75,
                     color: TEXT_SOFT,
                     fontWeight: 300,
-                    textAlign: "justify",
-                    hyphens: "auto",
+                    textAlign: "center",
                   }}
                 >
                   {p.body}
@@ -872,38 +678,26 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24 mb-10 md:mb-14">
-            <div>
-              <SectionLabel>Career</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "56ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(26px, 3.8vw, 40px)",
-                  lineHeight: 1.15,
-                  letterSpacing: "-0.02em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
-                From graduate trainee in Pune to fire protection design lead
-                in Ireland
-              </h2>
-            </div>
-          </div>
+          <SectionHeader
+            label="Career"
+            heading="From graduate trainee in Pune to fire protection design lead in Ireland"
+          />
 
-          <ol className="space-y-0" style={{ margin: 0, padding: 0, listStyle: "none" }}>
+          <ol
+            className="max-w-[760px] mx-auto space-y-0"
+            style={{ margin: "0 auto", padding: 0, listStyle: "none" }}
+          >
             {ROLES.map((r, i) => (
               <li
                 key={r.company + r.dates}
-                className="grid gap-3 md:gap-6 md:grid-cols-[160px_1fr] py-6 md:py-8"
+                className="grid gap-3 md:gap-6 grid-cols-1 md:grid-cols-[140px_1fr] py-6 md:py-8 text-center md:text-left"
                 style={{
                   borderTop: i === 0 ? `1px solid ${AMBER}` : `1px solid ${RULE}`,
                 }}
               >
+                {/* Dates + Present indicator. Centred on mobile above the
+                    company block; on desktop returns to the 140px left
+                    column with left-aligned content. */}
                 <div
                   style={{
                     fontFamily: MONO,
@@ -915,6 +709,7 @@ export function HyperscaleFullPortfolio() {
                   <div>{r.dates}</div>
                   {r.current && (
                     <div
+                      className="justify-center md:justify-start"
                       style={{
                         color: AMBER_SOFT,
                         marginTop: 8,
@@ -976,14 +771,18 @@ export function HyperscaleFullPortfolio() {
                   >
                     {r.role}
                   </div>
+                  {/* Paragraph fills its column on desktop (no fixed
+                      maxWidth) so the right edge doesn't leave a big
+                      empty gutter. Mobile stays centred. */}
                   <p
+                    className="text-center md:text-justify"
                     style={{
                       fontFamily: SANS,
                       fontSize: 14.5,
                       lineHeight: 1.65,
                       color: TEXT_SOFT,
-                      maxWidth: "62ch",
                       fontWeight: 300,
+                      hyphens: "auto",
                     }}
                   >
                     {r.context}
@@ -1001,27 +800,10 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG_PANEL, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24 mb-10 md:mb-14">
-            <div>
-              <SectionLabel>Education</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "52ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(24px, 3.4vw, 36px)",
-                  lineHeight: 1.2,
-                  letterSpacing: "-0.02em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
-                Where I trained and where I stand
-              </h2>
-            </div>
-          </div>
+          <SectionHeader
+            label="Education"
+            heading="Where I trained and where I stand"
+          />
 
           <div className="grid gap-10 md:gap-16 md:grid-cols-2">
             <CredentialBlock title="Education" items={EDUCATION} />
@@ -1036,100 +818,20 @@ export function HyperscaleFullPortfolio() {
         style={{ background: BG, borderTop: `1px solid ${RULE_SOFT}` }}
       >
         <div className={container}>
-          <div className="grid gap-6 md:grid-cols-[220px_1fr] md:gap-24">
-            <div>
-              <SectionLabel>Contact</SectionLabel>
-              <LabelRule />
-            </div>
-            <div style={{ maxWidth: "62ch" }}>
-              <h2
-                style={{
-                  fontFamily: DISPLAY,
-                  fontSize: "clamp(26px, 4.2vw, 48px)",
-                  lineHeight: 1.08,
-                  letterSpacing: "-0.025em",
-                  color: TEXT,
-                  fontWeight: 500,
-                  margin: 0,
-                }}
-              >
+          <SectionHeader
+            label="Contact"
+            heading={
+              <>
                 Working on a building that{" "}
                 <em style={{ fontStyle: "italic", color: AMBER }}>
                   should not burn
                 </em>{" "}
                 — say hello
-              </h2>
-              <p
-                style={{
-                  fontFamily: SANS,
-                  marginTop: 18,
-                  fontSize: 15.5,
-                  lineHeight: 1.75,
-                  color: TEXT_MUTED,
-                  maxWidth: "54ch",
-                  fontWeight: 300,
-                  textAlign: "justify",
-                  hyphens: "auto",
-                }}
-              >
-                Fire protection design, hydraulic calculations, BIM
-                coordination, standards review. Reach me on any of the below
-                and I will answer within a day or two.
-              </p>
-
-              <ul
-                className="mt-10 md:mt-12 grid gap-4 md:gap-6 md:grid-cols-2"
-                style={{ margin: 0, padding: 0, listStyle: "none" }}
-              >
-                {[
-                  { label: "Email", value: IDENTITY.email, href: `mailto:${IDENTITY.email}` },
-                  { label: "Phone", value: IDENTITY.phone, href: `tel:${IDENTITY.phone.replace(/\s/g, "")}` },
-                  { label: "LinkedIn", value: IDENTITY.linkedin, href: IDENTITY.linkedinUrl },
-                  { label: "Location", value: IDENTITY.location, href: "" },
-                ].map(({ label, value, href }) => (
-                  <li
-                    key={label}
-                    style={{ borderTop: `1px solid ${AMBER}`, paddingTop: 12 }}
-                  >
-                    <div
-                      style={{
-                        fontFamily: SANS,
-                        fontSize: 10,
-                        letterSpacing: "0.16em",
-                        textTransform: "uppercase",
-                        color: AMBER,
-                        fontWeight: 500,
-                        marginBottom: 6,
-                      }}
-                    >
-                      {label}
-                    </div>
-                    {href ? (
-                      <a
-                        href={href}
-                        target={href.startsWith("http") ? "_blank" : undefined}
-                        rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        style={{
-                          fontFamily: MONO,
-                          fontSize: 13.5,
-                          color: TEXT,
-                          textDecoration: "none",
-                          wordBreak: "break-all",
-                        }}
-                        className="hover:underline underline-offset-4"
-                      >
-                        {value}
-                      </a>
-                    ) : (
-                      <span style={{ fontFamily: MONO, fontSize: 13.5, color: TEXT }}>
-                        {value}
-                      </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
+              </>
+            }
+            description="Fire protection design, hydraulic calculations, BIM coordination, standards review. Reach me on any of the below and I will answer within a day or two."
+          />
+          <ContactRow />
 
           <div style={{ maxWidth: 1200, margin: "80px auto 0" }}>
             <hr
@@ -1142,7 +844,7 @@ export function HyperscaleFullPortfolio() {
                 letterSpacing: "0.14em",
                 textTransform: "uppercase",
                 color: TEXT_MUTED,
-                textAlign: "right",
+                textAlign: "center",
               }}
             >
               © {new Date().getFullYear()} {IDENTITY.name}
@@ -1154,6 +856,181 @@ export function HyperscaleFullPortfolio() {
   );
 }
 
+/**
+ * ContactRow — three icon-first tiles (Email, LinkedIn, Location).
+ * Phone removed per Rev 3. Each tile centres its own icon → label →
+ * value stack; the row itself is centred on the page.
+ */
+function ContactRow() {
+  const items = [
+    {
+      key: "email",
+      label: "Email",
+      value: IDENTITY.email,
+      href: `mailto:${IDENTITY.email}`,
+      icon: <MailIcon />,
+    },
+    {
+      key: "linkedin",
+      label: "LinkedIn",
+      value: IDENTITY.linkedin,
+      href: IDENTITY.linkedinUrl,
+      icon: <LinkedInIcon />,
+    },
+    {
+      key: "location",
+      label: "Location",
+      value: IDENTITY.location,
+      href: "",
+      icon: <PinIcon />,
+    },
+  ];
+
+  return (
+    <ul
+      className="mt-2 md:mt-4 mx-auto grid gap-6 md:gap-10 grid-cols-1 md:grid-cols-3"
+      style={{
+        margin: "16px auto 0",
+        padding: 0,
+        listStyle: "none",
+        maxWidth: 820,
+      }}
+    >
+      {items.map(({ key, label, value, href, icon }) => {
+        const iconBlock = (
+          <div
+            aria-hidden
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              width: 40,
+              height: 40,
+              borderRadius: 8,
+              background: "rgba(240, 168, 94, 0.08)",
+              color: AMBER,
+              marginBottom: 12,
+            }}
+          >
+            {icon}
+          </div>
+        );
+        const labelBlock = (
+          <div
+            style={{
+              fontFamily: SANS,
+              fontSize: 10,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              color: AMBER,
+              fontWeight: 500,
+              marginBottom: 8,
+            }}
+          >
+            {label}
+          </div>
+        );
+        const valueStyle = {
+          fontFamily: MONO,
+          fontSize: 13.5,
+          color: TEXT,
+          textDecoration: "underline",
+          textUnderlineOffset: 4,
+          textDecorationColor: "rgba(232, 229, 222, 0.35)",
+          wordBreak: "break-word" as const,
+        };
+        return (
+          <li
+            key={key}
+            className="border-t md:border-t-0"
+            style={{
+              textAlign: "center",
+              paddingTop: 22,
+              borderColor: AMBER,
+            }}
+          >
+            {href ? (
+              <a
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={
+                  href.startsWith("http")
+                    ? "noopener noreferrer"
+                    : undefined
+                }
+                className="block hover:opacity-90"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                {iconBlock}
+                {labelBlock}
+                <span style={valueStyle}>{value}</span>
+              </a>
+            ) : (
+              <>
+                {iconBlock}
+                {labelBlock}
+                <span
+                  style={{
+                    fontFamily: MONO,
+                    fontSize: 13.5,
+                    color: TEXT,
+                  }}
+                >
+                  {value}
+                </span>
+              </>
+            )}
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+function MailIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <rect x="3" y="5" width="18" height="14" rx="2" />
+      <path d="M3 7l9 6 9-6" />
+    </svg>
+  );
+}
+
+function LinkedInIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M4.98 3.5a2.5 2.5 0 11-.02 5 2.5 2.5 0 01.02-5zM3 9h4v12H3V9zm7 0h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05 4.03 0 4.78 2.65 4.78 6.1V21H17.6v-5.4c0-1.29-.02-2.95-1.8-2.95-1.8 0-2.08 1.4-2.08 2.86V21H10V9z" />
+    </svg>
+  );
+}
+
+function PinIcon() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 21s-7-6.2-7-12a7 7 0 1114 0c0 5.8-7 12-7 12z" />
+      <circle cx="12" cy="9" r="2.5" />
+    </svg>
+  );
+}
+
 function CredentialBlock({
   title,
   items,
@@ -1162,7 +1039,7 @@ function CredentialBlock({
   items: readonly { label: string; primary: string; secondary?: string }[];
 }) {
   return (
-    <div>
+    <div style={{ textAlign: "center" }}>
       <h3
         style={{
           fontFamily: DISPLAY,
@@ -1173,6 +1050,7 @@ function CredentialBlock({
           marginBottom: 20,
           borderBottom: `1px solid ${AMBER}`,
           letterSpacing: "-0.015em",
+          textAlign: "center",
         }}
       >
         {title}

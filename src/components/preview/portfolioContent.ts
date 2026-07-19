@@ -239,12 +239,12 @@ export const EDUCATION = [
   {
     label: "Master of Engineering",
     primary: "Mechanical Design",
-    secondary: "MIT, Pune · 2013 — 2015 · 8.41 CGPA",
+    secondary: "MIT, Pune · 2013 — 2015",
   },
   {
     label: "Bachelor of Engineering",
     primary: "Mechanical",
-    secondary: "AISSMS, Pune · 2008 — 2012 · 63.82%",
+    secondary: "AISSMS, Pune · 2008 — 2012",
   },
 ] as const;
 
@@ -273,29 +273,26 @@ export const HERO_SPEC = [
   ["Right to work", IDENTITY.permit],
 ] as const;
 
-// Software used by the practice — logo slug matches file at /logos/{slug}.svg
-// when hasLogo is true; otherwise the SoftwareLogo component renders a
-// text-styled brand badge in the given brand colour.
+// Software used by the practice. Files live at /logos/{slug}.{ext}.
+// When hasLogo is true, that image is rendered; otherwise the badge
+// falls back to a text tile using the vendor's brand colour.
+// invert: true means the logo is already white / light and should sit
+// directly on the dark palette without a light background tile.
 export type SoftwareEntry = {
   name: string;
   slug: string;
   hasLogo: boolean;
+  ext?: "svg" | "webp" | "avif" | "png";
+  invert?: boolean;
   color: string;
 };
 
 export const SOFTWARE: readonly SoftwareEntry[] = [
-  { name: "AutoCAD", slug: "autocad", hasLogo: true, color: "#E51050" },
-  { name: "Revit", slug: "revit", hasLogo: true, color: "#0696D7" },
-  { name: "Navisworks", slug: "navisworks", hasLogo: false, color: "#F58220" },
-  { name: "Autosprink RVT", slug: "autosprink", hasLogo: false, color: "#3E9B4F" },
-  { name: "Fire Elite", slug: "fireelite", hasLogo: false, color: "#C8342E" },
-  { name: "MicroBIM Fire", slug: "microbim", hasLogo: false, color: "#164B8E" },
-  {
-    name: "Autodesk Construction Cloud",
-    slug: "acc",
-    hasLogo: true,
-    color: "#000000",
-  },
+  { name: "AutoCAD", slug: "autocad", hasLogo: true, ext: "webp", color: "#E51050" },
+  { name: "Revit", slug: "revit", hasLogo: true, ext: "svg", color: "#0696D7" },
+  { name: "Navisworks", slug: "navisworks", hasLogo: true, ext: "webp", color: "#F58220" },
+  { name: "Autosprink RVT", slug: "autosprink", hasLogo: true, ext: "avif", color: "#3E9B4F" },
+  { name: "MicroBIM Fire", slug: "microbim", hasLogo: true, ext: "svg", invert: true, color: "#164B8E" },
 ];
 
 // Section-specific bullet symbols. Each section reads a symbol from here
