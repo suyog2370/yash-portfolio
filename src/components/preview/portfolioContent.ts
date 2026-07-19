@@ -269,12 +269,12 @@ export const HERO_BULLETS = [
   "75+ projects delivered",
 ] as const;
 
-// Hero spec-schedule table (mirrors the Codebook hero content).
+// Hero spec-schedule table — kept minimal so it does not repeat the
+// feature bullets above (which already cover experience + standards).
+// Only the credentials that need to be surfaced explicitly stay here.
 export const HERO_SPEC = [
   ["Location", IDENTITY.location],
   ["Right to work", IDENTITY.permit],
-  ["Experience", `${IDENTITY.years} · US and Europe`],
-  ["Standards", "NFPA · FM Global · LPCB · European Norms"],
 ] as const;
 
 // Software used by the practice — logo slug matches file at /logos/{slug}.svg
