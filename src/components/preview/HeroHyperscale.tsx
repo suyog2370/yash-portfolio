@@ -134,8 +134,13 @@ export function HeroHyperscale() {
                     </dt>
                     <dd
                       style={{
-                        fontFamily: "var(--font-plex-mono), monospace",
+                        // Was IBM Plex Mono; client felt the mono read
+                        // as typewriter. Inter medium at the same size
+                        // keeps the spec-schedule feel without the
+                        // typewriter texture.
+                        fontFamily: "var(--font-inter), sans-serif",
                         fontSize: 12,
+                        fontWeight: 500,
                         lineHeight: 1.35,
                         margin: 0,
                         color: "var(--hs-text)",

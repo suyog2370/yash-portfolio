@@ -38,7 +38,11 @@ const RULE_SOFT = "var(--hs-rule-soft)";
 
 const DISPLAY = "var(--font-display)";
 const SANS = "var(--font-inter)";
-const MONO = "var(--font-plex-mono), 'IBM Plex Mono', monospace";
+// Metadata / spec / URL font. Previously IBM Plex Mono; swapped to Inter
+// per client feedback that the mono read as typewriter. Same stack as
+// SANS now, so weight and letter-spacing on each usage carry the
+// visual differentiation from paragraph text.
+const META = "var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif";
 
 // Consistent section padding on both mobile and desktop. Kept tight —
 // each section contributes ~40/56px per side so adjacent sections read
@@ -310,7 +314,7 @@ export function HyperscaleFullPortfolio() {
                     </div>
                     <div
                       style={{
-                        fontFamily: MONO,
+                        fontFamily: META,
                         fontSize: 12.5,
                         color: TEXT,
                         lineHeight: 1.4,
@@ -542,7 +546,7 @@ export function HyperscaleFullPortfolio() {
                     <li
                       key={item}
                       style={{
-                        fontFamily: MONO,
+                        fontFamily: META,
                         fontSize: 12.5,
                         lineHeight: 1.85,
                         color: TEXT_SOFT,
@@ -705,7 +709,7 @@ export function HyperscaleFullPortfolio() {
                     column with left-aligned content. */}
                 <div
                   style={{
-                    fontFamily: MONO,
+                    fontFamily: META,
                     fontSize: 11.5,
                     letterSpacing: "0.06em",
                     color: AMBER,
@@ -936,7 +940,7 @@ function ContactRow() {
           </div>
         );
         const valueStyle = {
-          fontFamily: MONO,
+          fontFamily: META,
           fontSize: 13.5,
           color: TEXT,
           textDecoration: "underline",
@@ -976,7 +980,7 @@ function ContactRow() {
                 {labelBlock}
                 <span
                   style={{
-                    fontFamily: MONO,
+                    fontFamily: META,
                     fontSize: 13.5,
                     color: TEXT,
                   }}
@@ -1090,7 +1094,7 @@ function CredentialBlock({
               {item.primary}
             </div>
             {item.secondary && (
-              <div style={{ fontFamily: MONO, fontSize: 12, color: TEXT_MUTED, lineHeight: 1.5 }}>
+              <div style={{ fontFamily: META, fontSize: 12, color: TEXT_MUTED, lineHeight: 1.5 }}>
                 {item.secondary}
               </div>
             )}
