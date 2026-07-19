@@ -120,6 +120,8 @@ export function HyperscaleFullPortfolio() {
                   lineHeight: 1.75,
                   color: TEXT_SOFT,
                   fontWeight: 300,
+                  textAlign: "justify",
+                  hyphens: "auto",
                 }}
               >
                 {ABOUT_PARAS.map((p, i) => (
@@ -431,9 +433,21 @@ export function HyperscaleFullPortfolio() {
             </div>
           </div>
 
-          <div className="grid gap-x-8 md:gap-x-10 gap-y-10 md:gap-y-12 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
+          {/* Card-framed columns: each column is a bordered panel with
+              consistent padding and a top rule. Uneven item counts read
+              as intentional inside a uniform frame. */}
+          <div className="grid gap-4 md:gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-4">
             {EXPERTISE.map((col) => (
-              <div key={col.title}>
+              <div
+                key={col.title}
+                style={{
+                  background: BG_DEEP,
+                  border: `1px solid ${RULE}`,
+                  padding: "22px 22px 24px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 <h3
                   style={{
                     fontFamily: DISPLAY,
@@ -448,7 +462,9 @@ export function HyperscaleFullPortfolio() {
                 >
                   {col.title}
                 </h3>
-                <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                <ul
+                  style={{ margin: 0, padding: 0, listStyle: "none", flexGrow: 1 }}
+                >
                   {col.items.map((item) => (
                     <li
                       key={item}
@@ -476,6 +492,40 @@ export function HyperscaleFullPortfolio() {
                     </li>
                   ))}
                 </ul>
+                {/* Bottom seal — small rule that anchors the eye at the
+                    same visual weight across all four columns. */}
+                <div
+                  aria-hidden
+                  style={{
+                    marginTop: 20,
+                    paddingTop: 8,
+                    borderTop: `1px solid ${RULE_SOFT}`,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: AMBER,
+                      display: "inline-block",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: MONO,
+                      fontSize: 10.5,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      color: TEXT_MUTED,
+                    }}
+                  >
+                    {col.items.length} items
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -533,6 +583,8 @@ export function HyperscaleFullPortfolio() {
                     lineHeight: 1.75,
                     color: TEXT_SOFT,
                     fontWeight: 300,
+                    textAlign: "justify",
+                    hyphens: "auto",
                   }}
                 >
                   {p.body}
@@ -729,7 +781,7 @@ export function HyperscaleFullPortfolio() {
               >
                 Working on a building that{" "}
                 <em style={{ fontStyle: "italic", color: AMBER }}>
-                  shouldn&rsquo;t burn
+                  should not burn
                 </em>{" "}
                 — say hello.
               </h2>
@@ -742,11 +794,13 @@ export function HyperscaleFullPortfolio() {
                   color: TEXT_MUTED,
                   maxWidth: "54ch",
                   fontWeight: 300,
+                  textAlign: "justify",
+                  hyphens: "auto",
                 }}
               >
                 Fire protection design, hydraulic calculations, BIM
                 coordination, standards review. Reach me on any of the below
-                and I&rsquo;ll answer within a day or two.
+                and I will answer within a day or two.
               </p>
 
               <ul

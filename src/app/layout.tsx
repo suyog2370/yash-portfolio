@@ -53,12 +53,12 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Yashkumar Shah — Sr. Fire Protection Design Engineer",
   description:
-    "Fire protection design for the buildings that shouldn't burn. Sr. Fire Protection Design Engineer with 9+ years across hyperscale data centres, healthcare, aviation and commercial developments in Europe and the US.",
+    "Fire protection design for the buildings that should not burn. Sr. Fire Protection Design Engineer with 9+ years across hyperscale data centres, healthcare, aviation and commercial developments in Europe and the US.",
   metadataBase: new URL("https://yashkumarshah.com"),
   openGraph: {
     title: "Yashkumar Shah — Sr. Fire Protection Design Engineer",
     description:
-      "Fire protection design for the buildings that shouldn't burn. Ireland-based, working across Europe and the US.",
+      "Fire protection design for the buildings that should not burn. Ireland-based, working across Europe and the US.",
     url: "https://yashkumarshah.com",
     siteName: "Yashkumar Shah",
     type: "website",

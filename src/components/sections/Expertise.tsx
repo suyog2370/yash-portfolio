@@ -26,7 +26,8 @@ export function Expertise() {
           </div>
         </div>
 
-        <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
+        {/* Card-framed columns for visual consistency. */}
+        <div className="grid gap-4 md:gap-5 md:grid-cols-2 lg:grid-cols-4">
           {EXPERTISE.map((col) => (
             <ExpertiseColumn key={col.title} column={col} />
           ))}
@@ -38,11 +39,11 @@ export function Expertise() {
 
 function ExpertiseColumn({ column }: { column: Column }) {
   return (
-    <div>
-      <h3 className="font-serif text-[19px] text-ink tracking-tight mb-4 pb-3 border-b border-[color:var(--rule)]">
+    <div className="flex flex-col bg-paper border border-[color:var(--rule)] p-5 md:p-6">
+      <h3 className="font-serif text-[19px] text-ink tracking-tight mb-4 pb-3 border-b border-[color:var(--brass)]">
         {column.title}
       </h3>
-      <ul className="space-y-2">
+      <ul className="space-y-2 flex-grow">
         {column.items.map((item) => (
           <li
             key={item}
@@ -55,6 +56,15 @@ function ExpertiseColumn({ column }: { column: Column }) {
           </li>
         ))}
       </ul>
+      <div className="mt-5 pt-2 border-t border-[color:var(--rule-soft)] flex items-center gap-1.5">
+        <span
+          aria-hidden
+          className="inline-block w-1.5 h-1.5 rounded-full bg-[color:var(--brass)]"
+        />
+        <span className="tech-label-uc text-[10px]">
+          {column.items.length} items
+        </span>
+      </div>
     </div>
   );
 }

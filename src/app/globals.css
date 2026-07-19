@@ -163,10 +163,19 @@ h1, h2, h3, h4, h5, h6 {
   font-size: 17px;
   line-height: 1.65;
   margin: 0 0 1.1em;
+  text-align: justify;
+  hyphens: auto;
 }
 
 .prose p:last-child {
   margin-bottom: 0;
+}
+
+/* Utility: apply to any multi-line paragraph block to match the
+   justify + auto-hyphen treatment used in About. */
+.text-justify-prose {
+  text-align: justify;
+  hyphens: auto;
 }
 
 /* ============================================================================

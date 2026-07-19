@@ -35,14 +35,14 @@ export function Contact() {
 
           <div className="max-w-[62ch]">
             <h2 className="font-serif text-[36px] md:text-[52px] leading-[1.05] tracking-[-0.02em] text-ink">
-              If you&rsquo;re working on a building that
+              If you are working on a building that
               <br className="hidden md:inline" />{" "}
-              <span className="italic">shouldn&rsquo;t burn</span> — say hello.
+              <span className="italic">should not burn</span> — say hello.
             </h2>
 
-            <p className="mt-6 text-graphite text-[16.5px] leading-relaxed max-w-[54ch]">
+            <p className="mt-6 text-graphite text-[16.5px] leading-relaxed max-w-[54ch] text-justify-prose">
               Fire protection design, hydraulic calculations, BIM coordination,
-              standards review. Reach me on any of the below and I&rsquo;ll
+              standards review. Reach me on any of the below and I will
               answer within a day or two.
             </p>
 

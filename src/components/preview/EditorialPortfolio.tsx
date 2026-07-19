@@ -172,7 +172,7 @@ export function EditorialPortfolio() {
               fontWeight: 400,
             }}
           >
-            Fire protection design for the buildings that shouldn&rsquo;t burn.
+            Fire protection design for the buildings that should not burn.
           </p>
         </div>
       </section>
@@ -188,6 +188,8 @@ export function EditorialPortfolio() {
               fontSize: 15.5,
               lineHeight: 1.75,
               color: INK_SOFT,
+              textAlign: "justify",
+              hyphens: "auto",
             }}
           >
             {ABOUT_PARAS.map((p, i) => (
@@ -549,6 +551,8 @@ export function EditorialPortfolio() {
                     lineHeight: 1.7,
                     color: INK_SOFT,
                     margin: 0,
+                    textAlign: "justify",
+                    hyphens: "auto",
                   }}
                 >
                   {p.body}
@@ -815,7 +819,7 @@ export function EditorialPortfolio() {
               margin: 0,
             }}
           >
-            Working on a building that shouldn&rsquo;t burn?
+            Working on a building that should not burn?
           </h2>
 
           <ul

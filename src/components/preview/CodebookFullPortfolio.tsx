@@ -106,6 +106,8 @@ export function CodebookFullPortfolio() {
                   fontSize: 16.5,
                   lineHeight: 1.7,
                   color: INK_SOFT,
+                  textAlign: "justify",
+                  hyphens: "auto",
                 }}
               >
                 {ABOUT_PARAS.map((p, i) => (
@@ -386,9 +388,20 @@ export function CodebookFullPortfolio() {
             </div>
           </div>
 
-          <div className="grid gap-x-10 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
+          {/* Card-framed columns for visual consistency across
+              different item counts. */}
+          <div className="grid gap-4 md:gap-5 md:grid-cols-2 lg:grid-cols-4">
             {EXPERTISE.map((col) => (
-              <div key={col.title}>
+              <div
+                key={col.title}
+                style={{
+                  background: PAPER,
+                  border: `1px solid ${RULE}`,
+                  padding: "22px 22px 20px",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
                 <h3
                   style={{
                     fontFamily: SERIF,
@@ -402,7 +415,9 @@ export function CodebookFullPortfolio() {
                 >
                   {col.title}
                 </h3>
-                <ul style={{ margin: 0, padding: 0, listStyle: "none" }}>
+                <ul
+                  style={{ margin: 0, padding: 0, listStyle: "none", flexGrow: 1 }}
+                >
                   {col.items.map((item) => (
                     <li
                       key={item}
@@ -430,6 +445,38 @@ export function CodebookFullPortfolio() {
                     </li>
                   ))}
                 </ul>
+                <div
+                  aria-hidden
+                  style={{
+                    marginTop: 20,
+                    paddingTop: 8,
+                    borderTop: `1px solid ${RULE}`,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                  }}
+                >
+                  <span
+                    style={{
+                      width: 6,
+                      height: 6,
+                      borderRadius: "50%",
+                      background: RED,
+                      display: "inline-block",
+                    }}
+                  />
+                  <span
+                    style={{
+                      fontFamily: SANS,
+                      fontSize: 10.5,
+                      letterSpacing: "0.14em",
+                      textTransform: "uppercase",
+                      color: MUTED,
+                    }}
+                  >
+                    {col.items.length} items
+                  </span>
+                </div>
               </div>
             ))}
           </div>
@@ -503,6 +550,8 @@ export function CodebookFullPortfolio() {
                     fontSize: 15,
                     lineHeight: 1.7,
                     color: "rgba(250, 247, 242, 0.72)",
+                    textAlign: "justify",
+                    hyphens: "auto",
                   }}
                 >
                   {p.body}
@@ -697,8 +746,8 @@ export function CodebookFullPortfolio() {
                   fontWeight: 400,
                 }}
               >
-                If you&rsquo;re working on a building that{" "}
-                <em>shouldn&rsquo;t burn</em> — say hello.
+                If you are working on a building that{" "}
+                <em>should not burn</em> — say hello.
               </h2>
               <p
                 style={{
@@ -708,11 +757,13 @@ export function CodebookFullPortfolio() {
                   lineHeight: 1.7,
                   color: MUTED,
                   maxWidth: "54ch",
+                  textAlign: "justify",
+                  hyphens: "auto",
                 }}
               >
                 Fire protection design, hydraulic calculations, BIM
                 coordination, standards review. Reach me on any of the below
-                and I&rsquo;ll answer within a day or two.
+                and I will answer within a day or two.
               </p>
 
               <ul className="mt-12 grid gap-6 md:grid-cols-2">

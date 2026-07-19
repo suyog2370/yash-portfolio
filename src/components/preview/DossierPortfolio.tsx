@@ -322,7 +322,13 @@ export function DossierPortfolio() {
           <SectionHeading label="About" note="Bio" />
           <div
             className="grid gap-6 md:gap-10 md:grid-cols-[1fr_1fr]"
-            style={{ fontSize: 14.5, lineHeight: 1.7, color: INK_SOFT }}
+            style={{
+              fontSize: 14.5,
+              lineHeight: 1.7,
+              color: INK_SOFT,
+              textAlign: "justify",
+              hyphens: "auto",
+            }}
           >
             <p style={{ margin: 0 }}>{ABOUT_PARAS[0]}</p>
             <p style={{ margin: 0 }}>{ABOUT_PARAS[1]}</p>
@@ -596,7 +602,7 @@ export function DossierPortfolio() {
                   margin: 0,
                 }}
               >
-                Working on a building that shouldn&rsquo;t burn?
+                Working on a building that should not burn?
               </h2>
               <p
                 style={{

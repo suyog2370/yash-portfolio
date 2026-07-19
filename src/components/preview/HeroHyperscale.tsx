@@ -93,7 +93,7 @@ export function HeroHyperscale() {
                   margin: 0,
                 }}
               >
-                Fire protection design for the buildings that shouldn&rsquo;t
+                Fire protection design for the buildings that should not
                 burn.
               </p>
             </div>

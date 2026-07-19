@@ -88,7 +88,7 @@ export default function PreviewPicker() {
             Three of these have distinct structural layouts (Dossier, Editorial,
             Split-screen). The other three (Blueprint, Codebook, Hyperscale)
             share one layout but differ in palette. Take a look, tell me which
-            direction reads right, and I&rsquo;ll finish that one.
+            direction reads right, and I will finish that one.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export default function PreviewPicker() {
         </div>
 
         <div className="mt-16 pt-6 border-t border-black/10 font-mono text-[10.5px] tracking-[0.18em] uppercase text-black/50">
-          Pick one and I&rsquo;ll finish. Or ask for a different direction entirely.
+          Pick one and I will finish. Or ask for a different direction entirely.
         </div>
       </div>
     </main>

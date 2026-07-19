@@ -52,7 +52,7 @@ function Principle({ principle }: { principle: PrincipleData }) {
         {principle.title}
       </h3>
       <p
-        className="text-[15px] leading-[1.65]"
+        className="text-[15px] leading-[1.65] text-justify-prose"
         style={{ color: "rgba(245, 241, 232, 0.72)" }}
       >
         {principle.body}

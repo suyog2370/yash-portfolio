@@ -67,7 +67,7 @@ export function HeroCodebook() {
                   maxWidth: "42ch",
                 }}
               >
-                Fire protection design for the buildings that shouldn&rsquo;t
+                Fire protection design for the buildings that should not
                 burn.
               </p>
             </div>

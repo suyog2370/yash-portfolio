@@ -32,7 +32,7 @@ export function Hero() {
           <p className="mt-8 max-w-[46ch] font-serif text-[22px] md:text-[26px] leading-[1.3] text-ink-soft">
             Fire protection design for the buildings that
             <br className="hidden md:inline" />{" "}
-            <span className="italic">shouldn&rsquo;t burn.</span>
+            <span className="italic">should not burn.</span>
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-x-4 gap-y-2 tech-label">

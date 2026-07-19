@@ -7,7 +7,7 @@
 export const IDENTITY = {
   name: "Yashkumar Shah",
   title: "Design Lead · Fire Protection",
-  tagline: "Fire protection design for the buildings that shouldn't burn.",
+  tagline: "Fire protection design for the buildings that should not burn.",
   location: "Mullingar, Ireland",
   permit: "Critical Skills Work Permit · Stamp 1",
   years: "9+ years",
@@ -18,9 +18,9 @@ export const IDENTITY = {
 } as const;
 
 export const ABOUT_PARAS = [
-  "My path into fire protection engineering started with a mechanical engineering degree at MIT Pune and early years at Thermax and Tata, learning how large industrial systems actually behave. When I moved into building services, it was a natural step: fire protection sits at the intersection of hydraulics, mechanical design, code compliance, and coordination with every other discipline on a project.",
-  "Over the last nine years I've worked on more than a hundred buildings across the US and Europe. Hyperscale data centres in Ireland and mainland Europe. A large healthcare campus in Harlem. LaGuardia's airport redevelopment. Power generation facilities, ESFR warehouses, mixed-use towers, hospitality, residential. Each of them has a fire protection strategy behind the walls that I helped design.",
-  "I moved to Ireland at the end of 2025 to lead fire protection design at Writech Industrial Services, working primarily on mission-critical facilities and complex infrastructure across Europe. I'm building the next stretch of my practice around the projects I care about most: the buildings that people trust to keep working, and to keep them safe.",
+  "My path into fire protection engineering started with a mechanical design engineering degree at MIT Pune and early years at Thermax and Tata, learning how large industrial systems actually behave. When I moved into building services, it was a natural step: fire protection sits at the intersection of hydraulics, mechanical design, code compliance, and coordination with every other discipline on a project.",
+  "Over the last nine years, I have worked on fire protection system designs for over a hundred projects across the US and Europe. My experience spans critical infrastructure and landmark developments, including hyperscale data centres, Harlem's major healthcare campus, and the LaGuardia Airport redevelopment. From power plants and industrial warehouses to high-rise mixed-use, hospitality, and residential towers. Each of them has a fire protection strategy behind the walls that I helped design.",
+  "I moved to Ireland at the end of 2025 to lead fire protection design at Writech Industrial Services, working primarily on mission-critical facilities and complex infrastructure across Europe. I am building the next stretch of my practice around the projects I care about most: the buildings that people trust to keep working, and to keep them safe.",
 ];
 
 export const CURRENT_FOCUS = {
@@ -56,7 +56,7 @@ export const SECTORS = [
   {
     name: "Hyperscale data centres",
     description:
-      "Sprinkler and pre-action design for mission-critical white-space, pump rooms, and support facilities across multiple European sites.",
+      "Sprinkler systems like pre-action system design for mission-critical white-space, pump rooms, and support facilities across multiple European sites.",
   },
   {
     name: "Power generation buildings",
@@ -71,12 +71,12 @@ export const SECTORS = [
   {
     name: "Medical / hospital",
     description:
-      "Life-safety design for hospital campuses and healthcare developments, coordinated tightly with HVAC and complex compartmentation strategies.",
+      "Fire protection design for hospital campuses and healthcare developments, coordinated tightly with HVAC and complex compartmentation strategies.",
   },
   {
     name: "Commercial / office buildings",
     description:
-      "Sprinkler design and standpipe systems for high-rise and mid-rise offices across the US and Europe, coordinated in Revit and Navisworks.",
+      "Sprinkler design and standpipe systems for mid-rise offices across the US and Europe, coordinated in Revit and Navisworks.",
   },
   {
     name: "Shopping complex",
@@ -103,11 +103,6 @@ export const SECTORS = [
     description:
       "Domestic and residential sprinkler systems for apartment blocks and mixed developments across Ireland and the UK.",
   },
-  {
-    name: "Town houses",
-    description:
-      "BS 9251 and IS EN 12845 residential sprinkler systems for townhouse developments, sized and detailed for build-ready installation.",
-  },
 ] as const;
 
 export const EXPERTISE = [
@@ -116,12 +111,11 @@ export const EXPERTISE = [
     items: [
       "Wet & dry sprinkler",
       "Pre-action (single & double interlock)",
+      "ESFR sprinkler system",
       "Deluge",
-      "Water mist",
+      "Low pressure water mist",
       "Foam suppression (AFFF / high-expansion)",
-      "Gaseous & inert gas suppression (CO2, FM-200, NOVEC, IG-541)",
       "Special hazard fire protection",
-      "Standpipe & hose systems",
       "Fire hydrant networks",
       "Fire pump rooms",
     ],
@@ -146,11 +140,9 @@ export const EXPERTISE = [
       "AutoCAD",
       "Navisworks Manage",
       "Autosprink RVT",
-      "Fire Elite / SprinkCAD",
+      "Fire Elite",
       "MicroBIM",
       "Autodesk Construction Cloud",
-      "Bluebeam Revu",
-      "BIM 360",
     ],
   },
   {
@@ -173,15 +165,15 @@ export const EXPERTISE = [
 export const PRINCIPLES = [
   {
     title: "Life safety first, always.",
-    body: "Every decision on a fire protection drawing has to work backwards from the same question — will this system perform the moment it matters. Coverage, density, response time, water supply, redundancy. If a design choice makes any of those weaker, it isn't a good choice, no matter how elegant it looks on the model.",
+    body: "Every decision on a fire protection drawing has to work backwards from the same question — will this system perform the moment it matters. Coverage, density, response time, water supply, redundancy. If a design choice makes any of those weaker, it is not a good choice, no matter how elegant it looks on the model.",
   },
   {
     title: "The best drawing is the one the fabricator can build from.",
-    body: "LOD 500 isn't a badge; it's a promise to the installer. My models are meant to be built from, not admired. Sizing, hangers, offsets, and coordination clashes get resolved in the model — so the pipes go up in the field with fewer changes, less rework, and cleaner finishes.",
+    body: "LOD 500 is not a badge; it is a promise to the installer. My models are meant to be built from, not admired. Sizing, hangers, offsets, and coordination clashes get resolved in the model — so the pipes go up in the field with fewer changes, less rework, and cleaner finishes.",
   },
   {
     title: "Coordination is a design deliverable.",
-    body: "Fire protection lives above ceilings, alongside HVAC, cable trays, and structure. The value I bring isn't just the sprinkler design — it's the negotiation with every other discipline to make sure the design still works when they've all had their turn.",
+    body: "Fire protection lives above ceilings, alongside HVAC, cable trays, and structure. The value I bring is not just the sprinkler design — it is the negotiation with every other discipline to make sure the design still works when they have all had their turn.",
   },
 ] as const;
 
@@ -197,18 +189,18 @@ export type RoleEntry = {
 
 export const ROLES: readonly RoleEntry[] = [
   {
-    dates: "Jun 2027 — Present",
-    dateShort: "2027—",
+    dates: "Jun 2026 — Present",
+    dateShort: "2026—",
     company: "Writech Industrial Services Ltd.",
     location: "Ireland",
     role: "Design Lead — Fire Protection",
     context:
-      "Leading fire protection design for hyperscale data centres, power generation, and mission-critical infrastructure across Europe. Promoted from Sr. Fire Protection Design Engineer (joined Nov 2025) to Design Lead in June 2027.",
+      "Leading fire protection design for hyperscale data centres, power generation, and mission-critical infrastructure across Europe. Promoted from Sr. Fire Protection Design Engineer (joined end of 2025) to Design Lead in June 2026.",
     current: true,
   },
   {
-    dates: "Mar 2019 — Aug 2025",
-    dateShort: "2019—25",
+    dates: "Mar 2020 — Aug 2025",
+    dateShort: "2020—25",
     company: "JB Everest Technical Services",
     location: "Pune",
     role: "Sr. Public Health & Fire Protection Engineer",

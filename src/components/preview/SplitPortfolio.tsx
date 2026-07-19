@@ -299,6 +299,8 @@ export function SplitPortfolio() {
                     lineHeight: 1.7,
                     color: INK_SOFT,
                     marginBottom: 16,
+                    textAlign: "justify",
+                    hyphens: "auto",
                   }}
                 >
                   {p}
@@ -544,6 +546,8 @@ export function SplitPortfolio() {
                         lineHeight: 1.65,
                         color: INK_SOFT,
                         margin: 0,
+                        textAlign: "justify",
+                        hyphens: "auto",
                       }}
                     >
                       {p.body}
@@ -643,7 +647,7 @@ export function SplitPortfolio() {
               >
                 Working on a building that
                 <br />
-                shouldn&rsquo;t burn?
+                should not burn?
               </h2>
               <p
                 style={{
