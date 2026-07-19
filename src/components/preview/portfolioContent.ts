@@ -189,8 +189,8 @@ export type RoleEntry = {
 
 export const ROLES: readonly RoleEntry[] = [
   {
-    dates: "Jun 2026 — Present",
-    dateShort: "2026—",
+    dates: "Nov 2025 — Present",
+    dateShort: "2025—",
     company: "Writech Industrial Services Ltd.",
     location: "Ireland",
     role: "Design Lead — Fire Protection",
