@@ -63,6 +63,21 @@ export const metadata: Metadata = {
     siteName: "Yashkumar Shah",
     type: "website",
     locale: "en_IE",
+    images: [
+      {
+        url: "/headshot.webp",
+        width: 1024,
+        height: 1024,
+        alt: "Portrait of Yashkumar Shah, Design Lead — Fire Protection at Writech Industrial Services",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Yashkumar Shah — Design Lead, Fire Protection",
+    description:
+      "Fire protection design for the buildings that should not burn. Ireland-based, working across Europe and the US.",
+    images: ["/headshot.webp"],
   },
 };
 
