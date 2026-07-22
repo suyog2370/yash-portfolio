@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="128" height="128">
+  <!-- Pendant sprinkler head silhouette — thematic, restrained.
+       Amber on deep charcoal; geometric enough to hold up at 16px. -->
+  <rect width="32" height="32" rx="6" fill="#0E1116"/>
+
+  <g fill="none" stroke="#F0A85E" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Upper flange (pipe stub coming down from the ceiling) -->
+    <line x1="10" y1="6" x2="22" y2="6"/>
+    <!-- Threaded body -->
+    <line x1="14" y1="6" x2="14" y2="12"/>
+    <line x1="18" y1="6" x2="18" y2="12"/>
+    <!-- Hex/spanner shoulder -->
+    <path d="M12 12 h8 v3 h-8 z"/>
+    <!-- Frame arms holding the deflector -->
+    <path d="M14 15 L13 20"/>
+    <path d="M18 15 L19 20"/>
+    <!-- Bulb (glass frangible / thermal element) -->
+    <circle cx="16" cy="19" r="1.4" fill="#F0A85E"/>
+    <!-- Deflector plate at the bottom -->
+    <line x1="10" y1="22" x2="22" y2="22"/>
+    <!-- Small notches on the deflector -->
+    <line x1="12" y1="22" x2="12" y2="24"/>
+    <line x1="16" y1="22" x2="16" y2="24"/>
+    <line x1="20" y1="22" x2="20" y2="24"/>
+  </g>
+</svg>
