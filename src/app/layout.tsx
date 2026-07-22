@@ -51,12 +51,12 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Yashkumar Shah — Sr. Fire Protection Design Engineer",
+  title: "Yashkumar Shah — Design Lead, Fire Protection",
   description:
-    "Fire protection design for the buildings that should not burn. Sr. Fire Protection Design Engineer with 9+ years across hyperscale data centres, healthcare, aviation and commercial developments in Europe and the US.",
+    "Fire protection design for the buildings that should not burn. Design Lead, Fire Protection at Writech Industrial Services with 9+ years across hyperscale data centres, healthcare, aviation and commercial developments in Europe and the US.",
   metadataBase: new URL("https://yashkumarshah.com"),
   openGraph: {
-    title: "Yashkumar Shah — Sr. Fire Protection Design Engineer",
+    title: "Yashkumar Shah — Design Lead, Fire Protection",
     description:
       "Fire protection design for the buildings that should not burn. Ireland-based, working across Europe and the US.",
     url: "https://yashkumarshah.com",
@@ -67,20 +67,20 @@ export const metadata: Metadata = {
 };
 
 // Pre-hydration theme bootstrap. Runs synchronously in <head> before any
-// paint so the correct dark/light palette is applied on first render,
-// avoiding a flash-of-wrong-theme when the stored preference is light.
-// Same rule the ThemeToggle uses at runtime: localStorage > OS preference
-// > dark as the design's home base.
+// paint so the correct light/dark palette is applied on first render.
+// Precedence: localStorage.hsTheme > OS prefers-color-scheme > light as
+// the site's default landing state (per client). Kept in lockstep with
+// the runtime rule in ThemeToggle so both agree on first paint.
 const THEME_BOOTSTRAP = `
 (function(){
   try {
     var stored = localStorage.getItem('hsTheme');
     var theme = stored === 'light' || stored === 'dark'
       ? stored
-      : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      : (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
     document.documentElement.dataset.theme = theme;
   } catch (e) {
-    document.documentElement.dataset.theme = 'dark';
+    document.documentElement.dataset.theme = 'light';
   }
 })();
 `;

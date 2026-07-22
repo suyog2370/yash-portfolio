@@ -11,28 +11,29 @@ import { useEffect, useState } from "react";
  *
  * Precedence for the initial theme:
  *   1. `localStorage.hsTheme` if the user has picked one before
- *   2. `prefers-color-scheme: light` if no stored preference
- *   3. Otherwise stay dark (the design's home base)
+ *   2. `prefers-color-scheme: dark` if the OS is set to dark
+ *   3. Otherwise light (the site's default landing state)
  *
  * The pre-hydration script in RootLayout applies the same rule before
- * React mounts so there's no light-flash on load. This component just
- * mirrors the current value for the button label and writes changes.
+ * React mounts so there's no flash-of-wrong-theme on load. This
+ * component just mirrors the current value for the button label and
+ * writes changes.
  */
 
 type Theme = "dark" | "light";
 
 function readInitialTheme(): Theme {
-  if (typeof window === "undefined") return "dark";
+  if (typeof window === "undefined") return "light";
   const stored = window.localStorage.getItem("hsTheme");
   if (stored === "light" || stored === "dark") return stored;
-  const prefersLight = window.matchMedia(
-    "(prefers-color-scheme: light)"
+  const prefersDark = window.matchMedia(
+    "(prefers-color-scheme: dark)"
   ).matches;
-  return prefersLight ? "light" : "dark";
+  return prefersDark ? "dark" : "light";
 }
 
 export function ThemeToggle() {
-  const [theme, setTheme] = useState<Theme>("dark");
+  const [theme, setTheme] = useState<Theme>("light");
 
   // On mount, read the theme the pre-hydration script already applied so
   // the button reflects the true state, then keep DOM + localStorage in
